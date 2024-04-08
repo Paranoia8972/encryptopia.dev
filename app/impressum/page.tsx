@@ -32,6 +32,11 @@ export default function Impressum() {
         <br />
       </p>
       <p>
+        <strong>Warnung:</strong> <br />
+        Die unerwünschte Kontaktaufnahme oder das Aufsuchen der Adresse ist in jeglicher Form untersagt und wird strafrechtlich verfolgt.
+        <br />
+      </p>
+      <p>
         <strong>Haftungsausschluss: </strong>
         <br />
         <br />
