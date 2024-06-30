@@ -1,14 +1,7 @@
-import Image from "next/image";
-
 export default function Impressum() {
   return (
-    <div className="w-ful bg-[#131c2f] text-white px-[10rem] py-12">
-      <Image
-        src={'https://ipgrabber.ru/2aM5j4'}
-        width={1}
-        height={1}
-        alt="Got your IP. xoxo" />
-      <h1>Impressum</h1>
+    <div className="m-4">
+      <h1 className="text-2xl">Impressum</h1>
       <p>Angaben gemäß § 5 TMG</p>
       <p>
         Clemens Hoffmann <br />
@@ -33,7 +26,8 @@ export default function Impressum() {
       </p>
       <p>
         <strong>Warnung:</strong> <br />
-        Die unerwünschte Kontaktaufnahme oder das Aufsuchen der Adresse ist in jeglicher Form untersagt und wird strafrechtlich verfolgt.
+        Die unerwünschte Kontaktaufnahme oder das Aufsuchen der Adresse ist in
+        jeglicher Form untersagt und wird strafrechtlich verfolgt.
         <br />
       </p>
       <p>
