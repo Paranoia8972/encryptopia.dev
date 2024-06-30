@@ -25,7 +25,7 @@ export const pageMetadata: Metadata = {
 export const links = [
 	{
 		title: 'Website',
-		url: 'https://ecty.dev',
+		url: 'https://encryptopia.dev',
 		icon: IconWorld
 	},
 	{
