@@ -18,7 +18,7 @@ export default function Impressum() {
       </p>
       <p>
         <strong>Kontakt:</strong> <br />
-        Telefon: 49-17648070041
+        <a href="tel:49-15560192983"> Telefon: 49-15560192983</a>
         <br />
         E-Mail:{" "}
         <a href="mailto:contact@encryptopia.dev">contact@encryptopia.dev</a>
