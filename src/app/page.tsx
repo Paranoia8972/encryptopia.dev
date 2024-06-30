@@ -21,7 +21,7 @@ export default function Home() {
                 </Avatar>
                 <h1 className="text-xl text-card-foreground/70">
                   <span className="text-card-foreground/100">
-                    Hi, I'm Clemens!
+                    Hi, I&apos;m Clemens!
                   </span>{" "}
                   A student and developer.
                 </h1>
@@ -74,7 +74,7 @@ export default function Home() {
                 <span className="text-card-foreground">
                   My passion is building cool stuff.
                 </span>{" "}
-                I'm a 15 year old high school student in 9th grade. I love
+                I&apos;m a 15 year old high school student in 9th grade. I love
                 exploring and working with Servers (Minecraft, Linux), Web
                 Development and Raspberry Pis projects. I enjoy self-hosting
                 stuff, enhancing my ethical hacking skills, and contributing to
