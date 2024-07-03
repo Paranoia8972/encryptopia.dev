@@ -7,6 +7,11 @@ import { FaRss, FaDiscord, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosCode } from "react-icons/io";
 
+export const metadata: Metadata = {
+  title: "Encryptopia",
+  description: "Encryptopia.dev by @paranoia8972",
+};
+
 export default function Home() {
   return (
     <>
