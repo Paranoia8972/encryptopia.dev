@@ -6,6 +6,7 @@ import { FiGithub } from "react-icons/fi";
 import { FaRss, FaDiscord, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoIosCode } from "react-icons/io";
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Encryptopia",
