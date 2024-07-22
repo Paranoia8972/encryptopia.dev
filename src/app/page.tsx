@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -5,15 +6,39 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FiGithub } from "react-icons/fi";
 import { FaRss, FaDiscord, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { IoIosCode } from "react-icons/io";
-import { Metadata } from 'next';
+import React, { useState, useEffect } from "react";
 
-export const metadata: Metadata = {
-  title: "Encryptopia",
-  description: "Encryptopia.dev by @paranoia8972",
+const calculateAge = (birthdate: string | number | Date) => {
+  const today = new Date();
+  const birthDate = new Date(birthdate);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+};
+
+const determineGrade = (age: number) => {
+  if (age >= 6 && age <= 17) {
+    return age - 5;
+  }
+  return null;
 };
 
 export default function Home() {
+  const birthdate = "2009-03-05";
+  const [age, setAge] = useState(calculateAge(birthdate));
+  const [grade, setGrade] = useState(determineGrade(age));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newAge = calculateAge(birthdate);
+      setAge(newAge);
+      setGrade(determineGrade(newAge));
+    }, 1000 * 60 * 60 * 24 * 365);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <div className="flex flex-col justify-center items-center min-h-screen">
@@ -80,11 +105,11 @@ export default function Home() {
                 <span className="text-card-foreground">
                   My passion is building cool stuff.
                 </span>{" "}
-                I&apos;m a 15 year old high school student in 9th grade. I love
-                exploring and working with Servers (Minecraft, Linux), Web
-                Development and Raspberry Pis projects. I enjoy self-hosting
-                stuff, enhancing my ethical hacking skills, and contributing to
-                open-source projects.
+                I&apos;m a {age} year old high school student in {grade}th
+                grade. I love exploring and working with Servers (Minecraft,
+                Linux), Web Development and Raspberry Pis projects. I enjoy
+                self-hosting stuff, enhancing my ethical hacking skills, and
+                contributing to open-source projects.
               </p>
             </div>
             <div className="bg-card rounded-lg p-4 flex flex-col items-center justify-center border">
@@ -115,22 +140,16 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center text-primary-foreground/75">
+          <div className="flex justify-center opacity-75">
             <p>
-              Made with <span className="text-primary-foreground75">❤️</span> by
+              Made with <span className="">❤️</span> by
             </p>{" "}
             &nbsp;
-            <Link
-              className="hover:underline"
-              href={"https://github.com/Paranoia8972"}
-            >
-              @Paranoia8972
+            <Link className="hover:underline" href={"/links"}>
+              @paranoia8972
             </Link>
             &nbsp;&middot;&nbsp;
-            <Link
-              className="hover:underline"
-              href={"https://encryptopia.dev/impressum"}
-            >
+            <Link className="hover:underline" href={"/impressum"}>
               Impressum
             </Link>
           </div>
