@@ -1,7 +1,15 @@
+import { FaArrowLeft } from "react-icons/fa";
+import Link from "next/link";
+
 export default function Impressum() {
   return (
-    <div className="m-4">
-      <h1 className="text-2xl">Impressum</h1>
+    <div className="prose prose-invert mx-auto pb-12">
+      <Link href={"/"} className="hover:underline flex items-center pt-12">
+        <FaArrowLeft className="mr-1 size-3 my-auto" />
+        <span>Back</span>
+      </Link>
+      <hr />
+      <h1>Impressum</h1>
       <p>Angaben gemäß § 5 TMG</p>
       <p>
         Clemens Hoffmann <br />
@@ -18,7 +26,7 @@ export default function Impressum() {
       </p>
       <p>
         <strong>Kontakt:</strong> <br />
-        <a href="tel:49-15560192983"> Telefon: 49-15560192983</a>
+        Telefon: <a href="tel:49-15560192983"> +49 155 60192983</a>
         <br />
         E-Mail:{" "}
         <a href="mailto:contact@encryptopia.dev">contact@encryptopia.dev</a>
@@ -35,7 +43,6 @@ export default function Impressum() {
         <br />
         <br />
         <strong>Haftung für Inhalte</strong>
-        <br />
         <br />
         Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
         Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir
@@ -55,7 +62,6 @@ export default function Impressum() {
         <br />
         <strong>Haftung für Links</strong>
         <br />
-        <br />
         Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren
         Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden
         Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten
@@ -69,7 +75,6 @@ export default function Impressum() {
         <br />
         <br />
         <strong>Urheberrecht</strong>
-        <br />
         <br />
         Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen
         Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
@@ -86,7 +91,6 @@ export default function Impressum() {
         <br />
         <br />
         <strong>Datenschutz</strong>
-        <br />
         <br />
         Die Nutzung unserer Webseite ist in der Regel ohne Angabe
         personenbezogener Daten möglich. Soweit auf unseren Seiten
