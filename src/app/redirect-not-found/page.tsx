@@ -7,10 +7,10 @@ export default function RedirectNotFound() {
       <div className="mx-auto max-w-md text-center">
         <div className="mx-auto h-12 w-12 text-primary" />
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Some things aren't meant to last forever
+          Some things aren&apos;t meant to last forever
         </h1>
         <p className="mt-4 text-muted-foreground">
-          This short URL hasn't been found.
+          This short URL hasn&apos;t been found.
         </p>
         <div className="mt-6">
           <Link
