@@ -119,7 +119,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-card rounded-lg p-4 border">
-              <span className="text-sm font-normal text-primary-foreground/75">
+              <span className="text-sm font-normal opacity-75">
                 Coming soon!
               </span>
               <h2 className="text-2xl font-bold mb-4">
