@@ -1,13 +1,16 @@
 import { FaArrowLeft } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 export default function Impressum() {
+  const router = useRouter();
+
   return (
     <div className="prose prose-invert mx-auto pb-12">
-      <Link href={"/"} className="hover:underline flex items-center pt-12">
+      <button onClick={() => router.back()} className="hover:underline flex items-center pt-12">
         <FaArrowLeft className="mr-1 size-3 my-auto" />
         <span>Back</span>
-      </Link>
+      </button>
       <hr />
       <h1>Impressum</h1>
       <p>Angaben gemäß § 5 TMG</p>
