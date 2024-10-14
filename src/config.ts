@@ -11,3 +11,8 @@ export const socialLinks = {
   github: "https://github.com/Paranoia8972",
   email: "mailto:hello@encryptopia.dev",
 };
+
+export const umami = {
+  websiteId: "405b74dd-141a-439c-9bdd-3392f560f7dd", // umami website id
+  src: "https://umami-encryptopia.app/umami.js", // umami src
+};
