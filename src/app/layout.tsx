@@ -6,7 +6,6 @@ import { Navbar } from "@/components/nav";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { metaData } from "@/config";
-import Script from "next/script";
 import { Umami } from "@/components/umami";
 
 export const metadata: Metadata = {
