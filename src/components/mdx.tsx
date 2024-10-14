@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 import fs from "fs";
 import Image from "next/image";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { highlight } from "sugar-high";
+import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
+// import { highlight } from "sugar-high";
 import { TweetComponent } from "./tweet";
 import { CaptionComponent } from "./caption";
 import { YouTubeComponent } from "./youtube";
@@ -13,36 +13,48 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { Callout } from "./mdx/callout";
 import rehypePrettyCode from "rehype-pretty-code";
+import { ImageProps } from "next/image";
+import { AnchorHTMLAttributes } from "react";
 
-function CustomLink(props) {
-  let href = props.href;
-  if (href.startsWith("/")) {
+interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href?: string;
+}
+
+function CustomLink(props: CustomLinkProps) {
+  const href = props.href;
+  if (href && href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
+      <Link {...props} href={href}>
         {props.children}
       </Link>
     );
   }
-  if (href.startsWith("#")) {
+  if (href && href.startsWith("#")) {
     return <a {...props} />;
   }
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+function RoundedImage(props: ImageProps) {
+  const { alt, ...rest } = props;
+  return <Image alt={alt} className="rounded-lg" {...rest} />;
 }
 
-function Code({ children, ...props }) {
-  let codeHTML = highlight(children);
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+// function Code({ children, ...props }) {
+//   let codeHTML = highlight(children);
+//   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+// }
+
+interface TableData {
+  headers: string[];
+  rows: string[][];
 }
 
-function Table({ data }) {
-  let headers = data.headers.map((header, index) => (
+function Table({ data }: { data: TableData }) {
+  const headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
   ));
-  let rows = data.rows.map((row, index) => (
+  const rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
         <td key={cellIndex}>{cell}</td>
@@ -59,11 +71,11 @@ function Table({ data }) {
   );
 }
 
-function Strikethrough(props) {
+function Strikethrough(props: React.HTMLProps<HTMLModElement>) {
   return <del {...props} />;
 }
 
-function slugify(str) {
+function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()
@@ -74,12 +86,13 @@ function slugify(str) {
     .replace(/\-\-+/g, "-");
 }
 
-function createHeading(level) {
-  const Heading = ({ children }) => {
-    let slug = slugify(children);
+function createHeading(level: number) {
+  const Heading = (props: React.HTMLProps<HTMLHeadingElement>) => {
+    const { children, ...rest } = props;
+    const slug = slugify(children?.toString() || "");
     return React.createElement(
       `h${level}`,
-      { id: slug },
+      { id: slug, ...rest },
       [
         React.createElement("a", {
           href: `#${slug}`,
@@ -94,7 +107,7 @@ function createHeading(level) {
   return Heading;
 }
 
-let components = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -113,7 +126,9 @@ let components = {
   Callout,
 };
 
-export function CustomMDX(props) {
+export function CustomMDX(
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
+) {
   return (
     <MDXRemote
       {...props}
