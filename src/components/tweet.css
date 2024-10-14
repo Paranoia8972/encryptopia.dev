@@ -74,3 +74,9 @@
 .tweet div[class*="mediaWrapper"] {
   max-height: 250px;
 }
+
+.prose .tweet img {
+  margin: 0 !important;
+  display: inline !important;
+  vertical-align: middle !important;
+}
