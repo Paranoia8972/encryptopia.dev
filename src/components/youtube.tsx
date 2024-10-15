@@ -12,6 +12,11 @@ export function YouTubeComponent(props: YouTubeComponentProps) {
         opts={{
           height: "100%",
           width: "100%",
+          playerVars: {
+            autoplay: 0,
+            rel: 0,
+            modestbranding: 1,
+          },
         }}
         {...props}
         className="absolute top-0 left-0 w-full h-full"

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
-import fs from "fs";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
-// import { highlight } from "sugar-high";
+import { highlight } from "sugar-high";
 import { TweetComponent } from "./tweet";
 import { CaptionComponent } from "./caption";
 import { YouTubeComponent } from "./youtube";
@@ -11,71 +10,47 @@ import { ImageGrid } from "./image-grid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import { Callout } from "./mdx/callout";
-import rehypePrettyCode from "rehype-pretty-code";
-import { ImageProps } from "next/image";
-import { AnchorHTMLAttributes } from "react";
+import { Callout } from "@/components/mdx/callout";
+import remarkGfm from "remark-gfm";
 
-interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  href?: string;
+interface CustomLinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+  children: ReactNode;
 }
 
-function CustomLink(props: CustomLinkProps) {
-  const href = props.href;
-  if (href && href.startsWith("/")) {
+function CustomLink({ href, children, ...props }: CustomLinkProps) {
+  if (href.startsWith("/")) {
     return (
-      <Link {...props} href={href}>
-        {props.children}
+      <Link href={href} {...props}>
+        {children}
       </Link>
     );
   }
-  if (href && href.startsWith("#")) {
-    return <a {...props} />;
+  if (href.startsWith("#")) {
+    return <a {...props}>{children}</a>;
   }
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
-}
-
-function RoundedImage(props: ImageProps) {
-  const { alt, ...rest } = props;
-  return <Image alt={alt} className="rounded-lg" {...rest} />;
-}
-
-// function Code({ children, ...props }) {
-//   let codeHTML = highlight(children);
-//   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
-// }
-
-interface TableData {
-  headers: string[];
-  rows: string[][];
-}
-
-function Table({ data }: { data: TableData }) {
-  const headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
-  ));
-  const rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
-      ))}
-    </tr>
-  ));
   return (
-    <table>
-      <thead>
-        <tr className="text-left">{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <a target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
   );
 }
 
-function Strikethrough(props: React.HTMLProps<HTMLModElement>) {
-  return <del {...props} />;
+function RoundedImage(props: ImageProps) {
+  return <Image alt={props.alt} className="rounded-lg" {...props} />;
 }
 
-function slugify(str: string) {
+interface CodeProps extends React.HTMLAttributes<HTMLElement> {
+  children: string;
+}
+
+function Code({ children, ...props }: CodeProps) {
+  const codeHTML = highlight(children);
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+}
+
+function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
@@ -87,12 +62,11 @@ function slugify(str: string) {
 }
 
 function createHeading(level: number) {
-  const Heading = (props: React.HTMLProps<HTMLHeadingElement>) => {
-    const { children, ...rest } = props;
-    const slug = slugify(children?.toString() || "");
+  const Heading = ({ children }: { children: ReactNode }) => {
+    const slug = slugify(children as string);
     return React.createElement(
       `h${level}`,
-      { id: slug, ...rest },
+      { id: slug },
       [
         React.createElement("a", {
           href: `#${slug}`,
@@ -117,36 +91,26 @@ const components = {
   Image: RoundedImage,
   ImageGrid,
   a: CustomLink,
-  StaticTweet: TweetComponent,
+  Tweet: TweetComponent,
   Caption: CaptionComponent,
   YouTube: YouTubeComponent,
-  // code: Code,
-  Table,
-  del: Strikethrough,
+  code: Code,
   Callout,
 };
 
-export function CustomMDX(
-  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
-) {
+interface CustomMDXProps extends MDXRemoteProps {
+  components?: Record<string, React.ComponentType<any>>;
+}
+
+export function CustomMDX(props: CustomMDXProps) {
   return (
     <MDXRemote
       {...props}
       components={{ ...components, ...(props.components || {}) }}
       options={{
         mdxOptions: {
-          remarkPlugins: [remarkMath],
-          rehypePlugins: [
-            rehypeKatex,
-            [
-              rehypePrettyCode,
-              {
-                theme: JSON.parse(
-                  fs.readFileSync("./src/styles/tailwind-dark.json", "utf-8")
-                ),
-              },
-            ],
-          ],
+          remarkPlugins: [remarkMath, remarkGfm],
+          rehypePlugins: [rehypeKatex],
         },
       }}
     />

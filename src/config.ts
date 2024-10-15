@@ -1,5 +1,6 @@
 export const metaData = {
-  baseUrl: "https://encryptopia.dev/",
+  // baseUrl: "https://encryptopia.dev/",
+  baseUrl: "http://localhost:3000/",
   title: "ECYT",
   name: "Clemens",
   ogImage: "/opengraph-image.png",

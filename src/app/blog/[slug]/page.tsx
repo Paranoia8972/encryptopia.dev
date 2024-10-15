@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
 import { formatDate, getBlogPosts } from "@/lib/posts";
 import { metaData } from "@/config";
+import { Comments } from "@/components/comments";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -101,9 +102,10 @@ export default function Blog({ params }: BlogParams) {
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+      <article className="prose prose-quoteless prose-neutral dark:prose-invert prose-code:bg-[var(--sh-bg)] dark:prose-pre:bg-[var(--sh-bg)]">
         <CustomMDX source={post.content} />
       </article>
+      <Comments />
     </section>
   );
 }

@@ -29,6 +29,18 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --scroll: #c4c7cf;
+
+    --sh-identifier: #d946ef;
+    --sh-keyword: #4b5563;
+    --sh-string: #0284c7;
+    --sh-class: #d946ef;
+    --sh-property: #4b5563;
+    --sh-entity: #d946ef;
+    --sh-jsxliterals: #1f2937;
+    --sh-sign: #9ca3af;
+    --sh-comment: #6b7280;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -55,6 +67,19 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --scroll: #333f5d;
+
+    --sh-bg: #0f172a;
+    --sh-identifier: #f472b6;
+    --sh-keyword: #cbd5e1;
+    --sh-string: #7dd3fc;
+    --sh-class: #f472b6;
+    --sh-property: #cbd5e1;
+    --sh-entity: #f472b6;
+    --sh-jsxliterals: #f8fafc;
+    --sh-sign: #64748b;
+    --sh-comment: #94a3b8;
   }
 }
 
@@ -65,4 +90,121 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.prose {
+  @apply text-[#333333] dark:text-[#D4D4D4];
+}
+
+.prose .anchor {
+  @apply absolute invisible no-underline;
+  margin-left: -1em;
+  padding-right: 0.5em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.anchor:hover {
+  @apply visible;
+}
+
+.prose a {
+  @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em] font-normal text-[#333333] dark:text-[#D4D4D4];
+}
+
+.prose a:hover {
+  @apply dark:decoration-neutral-400 decoration-neutral-600;
+}
+
+.prose .anchor:after {
+  @apply text-neutral-300 dark:text-neutral-700;
+  content: "#";
+}
+
+.prose *:hover > .anchor {
+  @apply visible;
+}
+
+.prose pre {
+  @apply bg-[#F7F7F7] dark:bg-[var(--sh-bg)] rounded-lg overflow-x-auto;
+}
+
+.prose code {
+  @apply px-1 py-0.5 rounded-lg;
+}
+
+.prose pre code {
+  @apply p-0;
+  border: initial;
+  line-height: 1.5;
+}
+
+.prose code span {
+  @apply font-medium;
+}
+
+.prose img {
+  @apply m-0;
+}
+
+.prose h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-medium tracking-tight !important;
+}
+
+.prose strong {
+  @apply font-medium;
+}
+
+.prose > :first-child {
+  margin-top: 1.25em !important;
+  margin-bottom: 1.25em !important;
+}
+
+input[type="text"],
+input[type="email"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.prose .tweet a {
+  text-decoration: inherit;
+  font-weight: 500;
+}
+
+table {
+  display: block;
+  max-width: fit-content;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.prose .callout > p {
+  margin: 0 !important;
+}
+
+.title {
+  text-wrap: balance;
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.5rem;
+  background-color: transparent;
+  position: fixed;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--scroll);
 }
