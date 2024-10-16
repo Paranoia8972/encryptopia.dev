@@ -32,15 +32,16 @@
 
     --scroll: #c4c7cf;
 
-    --sh-identifier: #d946ef;
-    --sh-keyword: #4b5563;
-    --sh-string: #0284c7;
-    --sh-class: #d946ef;
-    --sh-property: #4b5563;
-    --sh-entity: #d946ef;
+    --sh-bg: #f7f7f7;
+    --sh-identifier: #f472b6;
+    --sh-keyword: #1f2937;
+    --sh-string: #635be8;
+    --sh-class: #f472b6;
+    --sh-property: #7dd3fc;
+    --sh-entity: #118bca;
     --sh-jsxliterals: #1f2937;
-    --sh-sign: #9ca3af;
-    --sh-comment: #6b7280;
+    --sh-sign: #64748b;
+    --sh-comment: #94a3b8;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -70,7 +71,7 @@
 
     --scroll: #333f5d;
 
-    --sh-bg: #0f172a;
+    --sh-bg: #1e293b;
     --sh-identifier: #f472b6;
     --sh-keyword: #cbd5e1;
     --sh-string: #7dd3fc;
@@ -127,7 +128,7 @@
 }
 
 .prose pre {
-  @apply bg-[#F7F7F7] dark:bg-[var(--sh-bg)] rounded-lg overflow-x-auto;
+  @apply bg-[var(--sh-bg)] dark:bg-[var(--sh-bg)] rounded-lg overflow-x-auto;
 }
 
 .prose code {
