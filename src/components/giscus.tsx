@@ -29,8 +29,8 @@ export function Comments() {
           data-lang="en"
           data-theme={
             typeof window !== "undefined"
-              ? localStorage.getItem("theme") || "light"
-              : "light"
+              ? localStorage.getItem("theme") || "preferred_color_scheme"
+              : "preferred_color_scheme"
           }
           crossOrigin="anonymous"
           async
