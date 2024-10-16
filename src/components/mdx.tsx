@@ -13,8 +13,7 @@ import "katex/dist/katex.min.css";
 import { Callout } from "@/components/mdx/callout";
 import remarkGfm from "remark-gfm";
 
-interface CustomLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: ReactNode;
 }
@@ -30,11 +29,7 @@ function CustomLink({ href, children, ...props }: CustomLinkProps) {
   if (href.startsWith("#")) {
     return <a {...props}>{children}</a>;
   }
-  return (
-    <a target="_blank" rel="noopener noreferrer" {...props}>
-      {children}
-    </a>
-  );
+  return <a target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
 }
 
 function RoundedImage(props: ImageProps) {
@@ -99,7 +94,7 @@ const components = {
 };
 
 interface CustomMDXProps extends MDXRemoteProps {
-  components?: Record<string, React.ComponentType<any>>;
+  components?: Record<string, React.ComponentType<unknown>>;
 }
 
 export function CustomMDX(props: CustomMDXProps) {
