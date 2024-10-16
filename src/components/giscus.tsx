@@ -4,8 +4,10 @@ import React, { useEffect } from "react";
 
 export function Comments() {
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
   }, []);
   return (
     <>
@@ -25,7 +27,11 @@ export function Comments() {
           data-emit-metadata="0"
           data-input-position="bottom"
           data-lang="en"
-          data-theme={localStorage.getItem("theme") || "light"}
+          data-theme={
+            typeof window !== "undefined"
+              ? localStorage.getItem("theme") || "light"
+              : "light"
+          }
           crossOrigin="anonymous"
           async
         ></Script>

@@ -1,51 +1,53 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Link from "next/link";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import { highlight } from "sugar-high";
-import { TweetComponent } from "./tweet";
-import { CaptionComponent } from "./caption";
-import { YouTubeComponent } from "./youtube";
+import { TweetComponent } from "./mdx/tweet";
+import { CaptionComponent } from "./mdx/caption";
+import { YouTubeComponent } from "./mdx/youtube";
 import { ImageGrid } from "./image-grid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import { Callout } from "@/components/mdx/callout";
+import { Callout } from "./mdx/callout";
+import { ImageProps } from "next/image";
+import { AnchorHTMLAttributes } from "react";
 import remarkGfm from "remark-gfm";
 
-interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
-  children: ReactNode;
+interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href?: string;
 }
 
-function CustomLink({ href, children, ...props }: CustomLinkProps) {
-  if (href.startsWith("/")) {
+function CustomLink(props: CustomLinkProps) {
+  const href = props.href;
+  if (href && href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
-        {children}
+      <Link {...props} href={href}>
+        {props.children}
       </Link>
     );
   }
-  if (href.startsWith("#")) {
-    return <a {...props}>{children}</a>;
+  if (href && href.startsWith("#")) {
+    return <a {...props} />;
   }
-  return <a target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
 function RoundedImage(props: ImageProps) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+  const { alt, ...rest } = props;
+  return <Image alt={alt} className="rounded-lg" {...rest} />;
 }
 
-interface CodeProps extends React.HTMLAttributes<HTMLElement> {
-  children: string;
-}
-
-function Code({ children, ...props }: CodeProps) {
-  const codeHTML = highlight(children);
+function Code({
+  children,
+  ...props
+}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) {
+  const codeHTML = highlight(children?.toString() || "");
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-function slugify(str: string): string {
+function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()
@@ -57,11 +59,12 @@ function slugify(str: string): string {
 }
 
 function createHeading(level: number) {
-  const Heading = ({ children }: { children: ReactNode }) => {
-    const slug = slugify(children as string);
+  const Heading = (props: React.HTMLProps<HTMLHeadingElement>) => {
+    const { children, ...rest } = props;
+    const slug = slugify(children?.toString() || "");
     return React.createElement(
       `h${level}`,
-      { id: slug },
+      { id: slug, ...rest },
       [
         React.createElement("a", {
           href: `#${slug}`,
@@ -93,11 +96,9 @@ const components = {
   Callout,
 };
 
-interface CustomMDXProps extends MDXRemoteProps {
-  components?: Record<string, React.ComponentType<unknown>>;
-}
-
-export function CustomMDX(props: CustomMDXProps) {
+export function CustomMDX(
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
+) {
   return (
     <MDXRemote
       {...props}

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+
 import { Button } from "@/components/ui/button";
 
 export function ModeToggle() {
@@ -17,10 +18,10 @@ export function ModeToggle() {
   }, [setTheme]);
 
   function changeGiscusTheme(newTheme: string) {
-    function sendMessage(message: { setConfig: { theme: any } }) {
+    function sendMessage(message: { setConfig: { theme: string } }) {
       const iframe = document.querySelector("iframe.giscus-frame");
       if (!iframe) return;
-      (iframe as HTMLIFrameElement).contentWindow?.postMessage(
+      (iframe as HTMLIFrameElement).contentWindow!.postMessage(
         { giscus: message },
         "https://giscus.app"
       );

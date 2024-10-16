@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
 import { formatDate, getBlogPosts } from "@/lib/posts";
 import { metaData } from "@/config";
-import { Comments } from "@/components/comments";
+import { Comments } from "@/components/giscus";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
