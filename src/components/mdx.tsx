@@ -14,6 +14,8 @@ import { Callout } from "./mdx/callout";
 import { ImageProps } from "next/image";
 import { AnchorHTMLAttributes } from "react";
 import remarkGfm from "remark-gfm";
+import { Disclosure } from "./mdx/disclosure";
+import { Tab, Tabs } from "./mdx/tabs";
 
 interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href?: string;
@@ -72,7 +74,7 @@ function createHeading(level: number) {
           className: "anchor",
         }),
       ],
-      children
+      children,
     );
   };
   Heading.displayName = `Heading${level}`;
@@ -88,6 +90,9 @@ const components = {
   h6: createHeading(6),
   Image: RoundedImage,
   ImageGrid,
+  Disclosure,
+  Tab,
+  Tabs,
   a: CustomLink,
   Tweet: TweetComponent,
   Caption: CaptionComponent,
@@ -97,7 +102,7 @@ const components = {
 };
 
 export function CustomMDX(
-  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps,
 ) {
   return (
     <MDXRemote
