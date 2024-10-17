@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/profile.png",
   },
 };
 
@@ -74,14 +74,14 @@ export default function RootLayout({
         />
         <Umami />
       </head>
-      <body className="antialiased flex flex-col items-center justify-center mx-auto mt-2 lg:mt-8 mb-20 lg:mb-40">
+      <body className="mx-auto mb-20 mt-2 flex flex-col items-center justify-center antialiased lg:mb-40 lg:mt-8">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex-auto min-w-0 mt-2 md:mt-6 flex flex-col px-6 sm:px-4 md:px-0 max-w-[640px] w-full">
+          <main className="mt-2 flex w-full min-w-0 max-w-[640px] flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
             <Navbar />
             {children}
             <Footer />

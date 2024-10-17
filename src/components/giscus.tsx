@@ -19,9 +19,9 @@ export function Comments() {
         <Script
           src="https://giscus.app/client.js"
           data-repo="Paranoia8972/encryptopia.dev"
-          data-repo-id="R_kgDOKXIhFA"
+          data-repo-id="R_kgDONAEZkA"
           data-category="Blog"
-          data-category-id="DIC_kwDOKXIhFM4CjZCJ"
+          data-category-id="DIC_kwDONAEZkM4CjdGR"
           data-mapping="title"
           data-strict="0"
           data-reactions-enabled="1"
