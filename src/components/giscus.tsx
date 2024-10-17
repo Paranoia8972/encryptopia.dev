@@ -5,7 +5,8 @@ import React, { useEffect } from "react";
 export function Comments() {
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme") || "light";
+      const savedTheme =
+        localStorage.getItem("theme") || "preferred_color_scheme";
       document.documentElement.setAttribute("data-theme", savedTheme);
     }
   }, []);
