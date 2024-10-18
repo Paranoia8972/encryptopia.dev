@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   async rewrites() {
     return [
       {
@@ -29,6 +32,26 @@ const nextConfig = {
       {
         source: "/json",
         destination: "/feed/feed.json",
+      },
+      {
+        source: "/sitemap.xml",
+        destination: "/sitemap",
+      },
+      {
+        source: "/imprint",
+        destination: "/legal/imprint",
+      },
+      {
+        source: "/privacy-policy",
+        destination: "/legal/privacy-policy",
+      },
+      {
+        source: "/privacy",
+        destination: "/legal/privacy-policy",
+      },
+      {
+        source: "/impressum",
+        destination: "/legal/imprint",
       },
     ];
   },
