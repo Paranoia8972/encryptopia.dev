@@ -1,20 +1,17 @@
 import Image from "next/image";
-import { socialLinks } from "@/config";
+import { metaData, socialLinks } from "@/config";
 
 export default function Page() {
   return (
     <section>
-      <a href={socialLinks.twitter} target="_blank">
-        <Image
-          src="/profile.png"
-          alt="Profile photo"
-          className="rounded-full bg-gray-100 block lg:mt-5 mt-0 lg:mb-5 mb-10 mx-auto sm:float-right sm:ml-5 sm:mb-5"
-          unoptimized
-          width={160}
-          height={160}
-          priority
-        />
-      </a>
+      <Image
+        src="/profile.avif"
+        alt={`${metaData.username}'s profile`}
+        className="mx-auto mb-10 mt-0 block rounded-full bg-gray-100 sm:float-right sm:mb-5 sm:ml-5 lg:mb-5 lg:mt-5"
+        width={160}
+        height={160}
+        priority
+      />
 
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
         My passion is building cool stuff.
