@@ -1,3 +1,15 @@
+import {
+  IconBrandGithub,
+  IconWorld,
+  IconBrandX,
+  IconNews,
+  IconBrandDiscord,
+  IconBrandReddit,
+  IconBox,
+  IconMail,
+} from "@tabler/icons-react";
+import { Link } from "./components/link-item";
+
 export const metaData = {
   baseUrl: "https://encryptopia.dev/",
   // baseUrl: "http://localhost:3000/",
@@ -5,6 +17,9 @@ export const metaData = {
   name: "Clemens",
   ogImage: "/opengraph-image.png",
   description: "My wierd knowledge, noted down.",
+  username: "Paranoia8972",
+  avatar: "/profile.avif",
+  about: "I'm a student and developer from Germany.",
 };
 
 export const socialLinks = {
@@ -17,3 +32,46 @@ export const umami = {
   websiteId: "405b74dd-141a-439c-9bdd-3392f560f7dd", // umami website id
   src: "https://umami-seven-topaz.vercel.app/script.js", // umami src
 };
+
+export const links = [
+  {
+    title: "Website",
+    url: "/",
+    icon: IconWorld,
+  },
+  {
+    title: "GitHub",
+    url: "https://github.com/Paranoia8972",
+    icon: IconBrandGithub,
+  },
+  {
+    title: "Mail",
+    url: "mailto:hello@encryptopia.dev",
+    icon: IconMail,
+  },
+  {
+    title: "OnThePixel",
+    url: "https://onthepixel.net",
+    icon: IconBox,
+  },
+  {
+    title: "Twitter	",
+    url: "https://twitter.com/paranoia8972",
+    icon: IconBrandX,
+  },
+  {
+    title: "Blog",
+    url: "https://encryptopia.dev/blog",
+    icon: IconNews,
+  },
+  {
+    title: "Discord",
+    url: "https://discord.com/users/982984144567017493",
+    icon: IconBrandDiscord,
+  },
+  {
+    title: "Reddit",
+    url: "https://reddit.com/user/Paranoia8972/",
+    icon: IconBrandReddit,
+  },
+] as Link[];
