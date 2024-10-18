@@ -1,10 +1,24 @@
 "use client";
 import { FaArrowLeft } from "react-icons/fa";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Impressum() {
   const router = useRouter();
+
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
 
   return (
     <div className="prose mx-auto pb-12 dark:prose-invert">
