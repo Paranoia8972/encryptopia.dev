@@ -34,8 +34,8 @@ const nextConfig = {
         destination: "/feed/feed.json",
       },
       {
-        source: "/sitemap.xml",
-        destination: "/sitemap",
+        source: "/sitemap",
+        destination: "/sitemap.xml",
       },
       {
         source: "/imprint",
