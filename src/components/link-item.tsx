@@ -15,7 +15,7 @@ export function LinkItem({ link }: { link: Link }) {
       size={link.size ?? "lg"}
       className={link.className}
     >
-      <Link href={link.url}>
+      <Link href={link.url} target="_blank" rel="noopener noreferrer">
         {link.icon && <link.icon className="mr-2 h-4 w-4" />}
         {link.title}
       </Link>

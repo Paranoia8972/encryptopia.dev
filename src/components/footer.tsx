@@ -1,8 +1,11 @@
 "use client";
-
 import React from "react";
-import { FaXTwitter, FaGithub, FaRss } from "react-icons/fa6";
-import { TbMailFilled } from "react-icons/tb";
+import {
+  IconBrandGithub,
+  IconMail,
+  IconBrandX,
+  IconRss,
+} from "@tabler/icons-react";
 import { metaData, socialLinks } from "@/config";
 import Link from "next/link";
 
@@ -10,14 +13,14 @@ const YEAR = new Date().getFullYear();
 
 interface SocialLinkProps {
   href: string;
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
 }
 
 function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
   return (
     <Link href={href} target="_blank" rel="noopener noreferrer">
-      <Icon />
+      <Icon className="size-5" />
       <span className="sr-only">{label}</span>
     </Link>
   );
@@ -28,15 +31,16 @@ function SocialLinks() {
     <div className="float-right flex gap-3.5 text-lg transition-opacity duration-300 hover:opacity-90">
       <SocialLink
         href={socialLinks.twitter}
-        icon={FaXTwitter}
+        icon={IconBrandX}
         label="Twitter"
       />
-      <SocialLink href={socialLinks.github} icon={FaGithub} label="GitHub" />
-      <SocialLink href={socialLinks.email} icon={TbMailFilled} label="Email" />
-      <Link href="/rss.xml" target="_self" aria-label="RSS Feed">
-        <FaRss />
-        <span className="sr-only">RSS Feed</span>
-      </Link>
+      <SocialLink
+        href={socialLinks.github}
+        icon={IconBrandGithub}
+        label="GitHub"
+      />
+      <SocialLink href={socialLinks.email} icon={IconMail} label="Email" />
+      <SocialLink href="/rss" icon={IconRss} label="RSS Feed" />
     </div>
   );
 }

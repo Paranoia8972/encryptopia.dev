@@ -23,7 +23,7 @@ export function ModeToggle() {
       if (!iframe) return;
       (iframe as HTMLIFrameElement).contentWindow!.postMessage(
         { giscus: message },
-        "https://giscus.app"
+        "https://giscus.app",
       );
     }
 

@@ -1,11 +1,11 @@
 import {
-  IconBrandGithub,
-  IconWorld,
-  IconBrandX,
-  IconNews,
   IconBrandDiscord,
   IconBrandReddit,
-  IconBox,
+  IconRss,
+  IconBrandX,
+  IconWorld,
+  IconBrandGithub,
+  IconCube,
   IconMail,
 } from "@tabler/icons-react";
 import { Link } from "./components/link-item";
@@ -52,7 +52,7 @@ export const links = [
   {
     title: "OnThePixel",
     url: "https://onthepixel.net",
-    icon: IconBox,
+    icon: IconCube,
   },
   {
     title: "Twitter	",
@@ -62,7 +62,7 @@ export const links = [
   {
     title: "Blog",
     url: "https://encryptopia.dev/blog",
-    icon: IconNews,
+    icon: IconRss,
   },
   {
     title: "Discord",
