@@ -1,34 +1,6 @@
-"use client";
-import { FaArrowLeft } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
 export default function Impressum() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handlePageShow = (event: PageTransitionEvent) => {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    };
-
-    window.addEventListener("pageshow", handlePageShow);
-
-    return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-    };
-  }, []);
-
   return (
     <div className="prose mx-auto pb-12 dark:prose-invert">
-      <button
-        onClick={() => router.back()}
-        className="flex items-center pt-12 hover:underline"
-      >
-        <FaArrowLeft className="my-auto mr-1 size-3" />
-        <span>Back</span>
-      </button>
       <h1>Impressum</h1>
       <hr />
       <p>Angaben gemäß § 5 TMG (Telemediengesetz)</p>
@@ -40,7 +12,6 @@ export default function Impressum() {
         24107 Strohbrück <br />
       </p>
       <p>
-        {" "}
         <strong>Vertreten durch: </strong>
         <br />
         Clemens Hoffmann

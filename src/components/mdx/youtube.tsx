@@ -7,7 +7,7 @@ interface YouTubeComponentProps {
 
 export function YouTubeComponent(props: YouTubeComponentProps) {
   return (
-    <div className="relative w-full h-0 pb-[56.25%] my-6">
+    <div className="relative my-6 h-0 w-full pb-[56.25%]">
       <YT
         opts={{
           height: "100%",
@@ -19,7 +19,7 @@ export function YouTubeComponent(props: YouTubeComponentProps) {
           },
         }}
         {...props}
-        className="absolute top-0 left-0 w-full h-full"
+        className="absolute left-0 top-0 h-full w-full"
       />
     </div>
   );

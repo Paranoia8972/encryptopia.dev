@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { metaData, socialLinks } from "@/config";
+import { metaData } from "@/config";
 
 export default function Page() {
   return (
@@ -11,6 +11,7 @@ export default function Page() {
         width={160}
         height={160}
         priority
+        unoptimized
       />
 
       <h1 className="mb-8 text-2xl font-medium tracking-tight">

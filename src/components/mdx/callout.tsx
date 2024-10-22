@@ -31,7 +31,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        "not-prose mb-6 rounded-md border border-l-4 border-l-current p-4 text-sm dark:border-b-transparent dark:border-r-transparent dark:border-t-transparent",
+        "mb-6 rounded-md border border-l-4 border-l-current p-4 pb-0 text-sm dark:border-b-transparent dark:border-r-transparent dark:border-t-transparent",
         {
           "bg-red-50 text-red-700 dark:bg-red-600/10 dark:text-red-400":
             type === "danger",
@@ -43,7 +43,7 @@ export function Callout({
             type === "tip",
           "bg-gray-50 text-gray-700 dark:bg-gray-600/10 dark:text-gray-400":
             type === "note",
-        }
+        },
       )}
       {...props}
     >

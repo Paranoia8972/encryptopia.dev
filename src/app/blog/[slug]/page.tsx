@@ -13,12 +13,15 @@ export async function generateStaticParams() {
   }));
 }
 
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata | undefined> {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+}: PageProps): Promise<Metadata | undefined> {
+  const resolvedParams = await params;
+  const post = getBlogPosts().find((post) => post.slug === resolvedParams.slug);
   if (!post) {
     return;
   }
@@ -39,32 +42,19 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      type: "article",
       publishedTime,
-      url: `${metaData.baseUrl}/blog/${post.slug}`,
       images: [
         {
           url: ogImage,
         },
       ],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
   };
 }
 
-interface BlogParams {
-  params: {
-    slug: string;
-  };
-}
-
-export default function Blog({ params }: BlogParams) {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+export default async function Blog({ params }: PageProps) {
+  const resolvedParams = await params;
+  const post = getBlogPosts().find((post) => post.slug === resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -94,15 +84,15 @@ export default function Blog({ params }: BlogParams) {
           }),
         }}
       />
-      <h1 className="title mb-3 font-medium text-2xl tracking-tight">
+      <h1 className="title mb-3 text-2xl font-medium tracking-tight">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-medium">
+      <div className="text-medium mb-8 mt-2 flex items-center justify-between">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+      <article className="prose prose-neutral prose-quoteless dark:prose-invert">
         <CustomMDX source={post.content} />
       </article>
       <Comments />

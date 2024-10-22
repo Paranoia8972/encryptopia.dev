@@ -98,7 +98,7 @@
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
+  @apply invisible absolute no-underline;
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -111,11 +111,11 @@
 }
 
 .prose a {
-  @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em] font-normal text-[#333333] dark:text-[#D4D4D4];
+  @apply font-normal text-[#333333] decoration-neutral-400 decoration-[0.1em] underline-offset-2 transition-all dark:text-[#D4D4D4] dark:decoration-neutral-600;
 }
 
 .prose a:hover {
-  @apply dark:decoration-neutral-400 decoration-neutral-600;
+  @apply decoration-neutral-600 dark:decoration-neutral-400;
 }
 
 .prose .anchor:after {
@@ -128,11 +128,11 @@
 }
 
 .prose pre {
-  @apply bg-[var(--sh-bg)] dark:bg-[var(--sh-bg)] rounded-lg overflow-x-auto;
+  @apply overflow-x-auto rounded-lg bg-[var(--sh-bg)] dark:bg-[var(--sh-bg)];
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  @apply rounded-lg px-1 py-0.5;
 }
 
 .prose pre code {

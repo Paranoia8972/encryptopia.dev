@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -13,7 +12,7 @@ const TableOfContents: React.FC = () => {
 
   useEffect(() => {
     const elements = Array.from(
-      document.querySelectorAll("h1, h2, h3, h4, h5, h6")
+      document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
     ).filter((element) => !element.classList.contains("title"));
 
     const headings = elements.map((element) => ({

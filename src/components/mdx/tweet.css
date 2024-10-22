@@ -38,11 +38,11 @@
   .tweet .react-tweet-theme {
     /* Dark theme colors */
     --tweet-bg-color: hsl(var(--background));
-    --tweet-bg-color-hover: hsl(var(--muted));
+    --tweet-bg-color-hover: hsl(var(--muted) / 0.3);
     --tweet-quoted-bg-color-hover: hsl(var(--accent));
     --tweet-border: 1px solid hsl(var(--border));
     --tweet-color-blue-secondary: hsl(var(--foreground));
-    --tweet-color-blue-secondary-hover: hsl(var(--muted));
+    --tweet-color-blue-secondary-hover: hsl(var(--muted) / 0);
     --tweet-font-color-secondary: hsl(var(--muted-foreground));
   }
 }

@@ -1,27 +1,17 @@
+import { NextRequest, NextResponse } from "next/server";
 import { Feed } from "feed";
 import { getBlogPosts } from "@/lib/posts";
 import { metaData } from "@/config";
-import { NextResponse } from "next/server";
 
-export async function generateStaticParams() {
-  return [
-    { format: "rss.xml" },
-    { format: "atom.xml" },
-    { format: "feed.json" },
-  ];
-}
-
-export async function GET(
-  _: Request,
-  { params }: { params: { format: string } }
-) {
-  const { format } = params;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const format = searchParams.get("format");
   const validFormats = ["rss.xml", "atom.xml", "feed.json"];
 
-  if (!validFormats.includes(format)) {
+  if (!format || !validFormats.includes(format)) {
     return NextResponse.json(
       { error: "Unsupported feed format" },
-      { status: 404 }
+      { status: 404 },
     );
   }
 
@@ -34,9 +24,7 @@ export async function GET(
     description: metaData.description,
     id: BaseUrl,
     link: BaseUrl,
-    copyright: `All rights reserved ${new Date().getFullYear()}, ${
-      metaData.title
-    }`,
+    copyright: `All rights reserved ${new Date().getFullYear()}, ${metaData.title}`,
     generator: "Feed for Node.js",
     feedLinks: {
       json: `${BaseUrl}feed.json`,
@@ -58,11 +46,9 @@ export async function GET(
       id: postUrl,
       link: postUrl,
       description: post.metadata.summary,
-      category: categories.map((tag) => ({
-        name: tag,
-        term: tag,
-      })),
+      content: post.content,
       date: new Date(post.metadata.publishedAt),
+      category: categories.map((category) => ({ name: category })),
     });
   });
 
