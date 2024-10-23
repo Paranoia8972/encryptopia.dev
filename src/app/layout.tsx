@@ -1,11 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Navbar } from "@/components/nav";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { metaData } from "@/config";
 import { Umami } from "@/components/umami";
+import { SiteHeader } from "@/components/site-header";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,7 +52,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.className}`}>
+    <html
+      lang="en"
+      className={` ${inter.className} scroll-pt-16`}
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="alternate"
@@ -73,17 +78,19 @@ export default function RootLayout({
         />
         <Umami />
       </head>
-      <body className="mx-auto mb-20 mt-2 flex flex-col items-center justify-center antialiased lg:mb-40 lg:mt-8">
+      <body className="mx-auto mb-20 flex flex-col items-center justify-center antialiased lg:mb-40">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="mt-2 flex w-full min-w-0 max-w-[640px] flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
-            <Navbar />
-            {children}
-            <Footer />
+          <main className="flex w-full min-w-0 flex-auto flex-col">
+            <div className="relative flex min-h-dvh flex-col bg-background">
+              <SiteHeader />
+              {children}
+              <Footer />
+            </div>
           </main>
         </ThemeProvider>
       </body>
