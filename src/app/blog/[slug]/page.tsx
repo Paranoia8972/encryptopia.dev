@@ -4,6 +4,10 @@ import { CustomMDX } from "@/components/mdx";
 import { formatDate, getBlogPosts } from "@/lib/posts";
 import { metaData } from "@/config";
 import { Comments } from "@/components/giscus";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import TableOfContents from "@/components/table-of-contents";
+import Script from "next/script";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -60,9 +64,10 @@ export default async function Blog({ params }: PageProps) {
     notFound();
   }
 
+  const tags = ["React", "Next.js", "Tailwind CSS"];
   return (
-    <section>
-      <script
+    <div className="container mx-auto max-w-prose px-4 py-8 lg:max-w-4xl">
+      <Script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
@@ -84,18 +89,47 @@ export default async function Blog({ params }: PageProps) {
           }),
         }}
       />
-      <h1 className="title mb-3 text-2xl font-medium tracking-tight">
+      <h1 className="mb-2 text-3xl font-bold" id="blog-post-title">
         {post.metadata.title}
       </h1>
-      <div className="text-medium mb-8 mt-2 flex items-center justify-between">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+      <div className="mb-6 flex items-center text-sm text-muted-foreground">
+        <time dateTime={post.metadata.publishedAt}>
           {formatDate(post.metadata.publishedAt)}
-        </p>
+        </time>
       </div>
-      <article className="prose prose-neutral prose-quoteless dark:prose-invert">
-        <CustomMDX source={post.content} />
-      </article>
-      <Comments />
-    </section>
+      <div className="max-w-prose lg:flex lg:max-w-none lg:gap-8">
+        <div className="max-w-prose lg:w-2/3">
+          <div className="mb-6 aspect-[2/1] w-full max-w-prose overflow-hidden rounded-lg">
+            <Image
+              src={post.metadata.thumbnail}
+              alt="AI concept image"
+              width={600}
+              height={300}
+              className="h-full w-full border object-cover"
+            />
+          </div>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {post.metadata.tags &&
+              post.metadata.tags.split(",").map((tag) => (
+                <Badge
+                  key={tag}
+                  className="text-xsm rounded-md bg-neutral-300 px-2 py-1 text-slate-950 hover:bg-neutral-300 dark:bg-[#2e3f5b] dark:text-slate-200"
+                >
+                  {tag.trim()}
+                </Badge>
+              ))}
+          </div>
+          <main className="max-w-prose lg:max-w-none">
+            <article className="prose prose-sm prose-neutral prose-quoteless max-w-none dark:prose-invert sm:prose">
+              <CustomMDX source={post.content} />
+            </article>
+          </main>
+          <Comments />
+        </div>
+        <div className="mt-8 lg:mt-0">
+          <TableOfContents />
+        </div>
+      </div>
+    </div>
   );
 }
