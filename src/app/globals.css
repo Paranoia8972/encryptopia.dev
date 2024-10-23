@@ -166,35 +166,13 @@ h6 {
   margin-bottom: 1.25em !important;
 }
 
-input[type="text"],
-input[type="email"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 .prose .tweet a {
   text-decoration: inherit;
   font-weight: 500;
 }
 
-table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.prose .callout > p {
-  margin: 0 !important;
-}
-
-.title {
-  text-wrap: balance;
-}
-
 ::-webkit-scrollbar {
-  width: 0.4rem;
+  width: 0.5rem;
   height: 0.5rem;
   background-color: transparent;
   position: fixed;
