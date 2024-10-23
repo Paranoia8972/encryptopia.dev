@@ -1,7 +1,19 @@
+import { hostname } from "os";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "v0.dev",
+      },
+      {
+        hostname: "picsum.photos",
+      },
+    ],
   },
   async rewrites() {
     return [

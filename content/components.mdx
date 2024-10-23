@@ -2,6 +2,8 @@
 title: "Custom MDX Components"
 publishedAt: "2024-10-14"
 summary: "Custom MDX components showcase."
+thumbnail: "/photos/photo2.jpg"
+tags: mdx, components
 ---
 
 # Components
@@ -51,5 +53,11 @@ summary: "Custom MDX components showcase."
 
 <Tabs>
   <Tab title="bun">Tab 1 content</Tab>
-  <Tab title="deno">Tab 2 content</Tab>
+  <Tab title="deno">
+    ```tsx
+    <Callout type="info" title="...">
+      Text
+    </Callout>
+    ```
+  </Tab>
 </Tabs>

@@ -11,7 +11,7 @@ export const Disclosure: React.FC<DisclosureProps> = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div className="mb-12">
       <button
         className="my-2 flex w-full items-center rounded-md p-2 text-left transition hover:bg-gray-100 dark:hover:bg-white/5"
         onClick={() => setIsOpen(!isOpen)}

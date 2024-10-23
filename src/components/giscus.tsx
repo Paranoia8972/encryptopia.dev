@@ -12,10 +12,7 @@ export function Comments() {
   }, []);
   return (
     <>
-      <div
-        id="giscus-container"
-        className={`giscus px-2 sm:px-4 md:px-6 lg:px-0`}
-      >
+      <div id="giscus-container" className="giscus max-w-prose pt-8 sm:pt-16">
         <Script
           src="https://giscus.app/client.js"
           data-repo="Paranoia8972/encryptopia.dev"
@@ -35,8 +32,8 @@ export function Comments() {
           }
           crossOrigin="anonymous"
           async
-        ></Script>
-        <noscript className="text-lg text-red-500">
+        />
+        <noscript className="text-base text-red-500 sm:text-lg">
           Please enable JavaScript to view the comments powered by giscus.
         </noscript>
       </div>

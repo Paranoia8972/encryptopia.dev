@@ -31,7 +31,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        "mb-6 rounded-md border border-l-4 border-l-current p-4 pb-0 text-sm dark:border-b-transparent dark:border-r-transparent dark:border-t-transparent",
+        "mb-6 rounded-md border border-l-4 border-l-current px-4 py-3 text-sm dark:border-b-transparent dark:border-r-transparent dark:border-t-transparent",
         {
           "bg-red-50 text-red-700 dark:bg-red-600/10 dark:text-red-400":
             type === "danger",
@@ -53,7 +53,8 @@ export function Callout({
           {title ? title : type}
         </div>
       </div>
-      {children}
+
+      <div className="pt-2 text-slate-700 dark:text-slate-300">{children}</div>
     </div>
   );
 }

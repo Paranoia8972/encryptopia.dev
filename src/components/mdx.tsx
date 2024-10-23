@@ -45,7 +45,10 @@ function Code({
   children,
   ...props
 }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) {
-  const codeHTML = highlight(children?.toString() || "");
+  const codeContent = children?.toString() || "";
+  const isCodeBlock = codeContent.includes("\n");
+  const codeHTML = isCodeBlock ? highlight(codeContent) : codeContent;
+
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
