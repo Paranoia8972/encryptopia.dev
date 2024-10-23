@@ -28,7 +28,7 @@ function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
 
 function SocialLinks() {
   return (
-    <div className="float-right flex gap-3.5 text-lg transition-opacity duration-300 hover:opacity-90">
+    <div className="float-right mt-4 flex gap-3.5 text-lg transition-opacity duration-300 hover:opacity-90 md:mt-0">
       <SocialLink
         href={socialLinks.twitter}
         icon={IconBrandX}
@@ -47,33 +47,31 @@ function SocialLinks() {
 
 export default function Footer() {
   return (
-    <small className="mt-16 block text-[#1C1C1C] dark:text-[#D4D4D4] lg:mt-24">
-      <time>&copy; {YEAR}</time>{" "}
-      <Link
-        className="no-underline"
-        href={socialLinks.github}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {metaData.username}
-      </Link>
-      <span className="mx-1">|</span>
-      <Link href="/imprint" className="no-underline">
-        Imprint
-      </Link>{" "}
-      &middot;{" "}
-      <Link href="/privacy" className="no-underline">
-        Privacy
-      </Link>
-      <style jsx>{`
-        @media screen and (max-width: 480px) {
-          article {
-            padding-top: 2rem;
-            padding-bottom: 4rem;
-          }
-        }
-      `}</style>
-      <SocialLinks />
-    </small>
+    <footer>
+      <div className="-mb-16 mt-14 flex flex-col items-center lg:-mb-48">
+        <div className="mb-3 flex space-x-4">
+          <SocialLinks />
+        </div>
+        <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
+          <time>&copy; {YEAR}</time>{" "}
+          <Link
+            className="no-underline"
+            href={socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {metaData.username}
+          </Link>
+          <span className="mx-1"> </span>
+          <Link href="/imprint" className="no-underline">
+            Imprint
+          </Link>{" "}
+          &middot;{" "}
+          <Link href="/privacy" className="no-underline">
+            Privacy
+          </Link>
+        </div>
+      </div>
+    </footer>
   );
 }
