@@ -1,12 +1,18 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { metaData } from "@/config";
 import { Umami } from "@/components/umami";
-import { SiteHeader } from "@/components/site-header";
-import { cn } from "@/lib/utils";
+import { DesktopNav, MobileNav } from "@/components/nav";
+import Footer from "@/components/footer";
+import Link from "next/link";
+import {
+  IconMail,
+  IconBrandX,
+  IconBrandGithub,
+  IconBrandLinkedin,
+} from "@tabler/icons-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,11 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={` ${inter.className} scroll-pt-16`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           rel="alternate"
@@ -78,20 +80,25 @@ export default function RootLayout({
         />
         <Umami />
       </head>
-      <body className="mx-auto mb-20 flex flex-col items-center justify-center antialiased lg:mb-40">
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="flex w-full min-w-0 flex-auto flex-col">
-            <div className="relative flex min-h-dvh flex-col bg-background">
-              <SiteHeader />
-              {children}
-              <Footer />
+          <div className="min-h-screen bg-background text-foreground">
+            <MobileNav />
+            <div className="mx-auto max-w-[640px] px-6 py-16 pt-24 md:pt-16">
+              <div className="flex gap-16">
+                <DesktopNav />
+                <main className="flex-1">
+                  {children}
+                  <Footer />
+                </main>
+              </div>
             </div>
-          </main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

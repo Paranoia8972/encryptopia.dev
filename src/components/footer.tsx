@@ -6,69 +6,36 @@ import {
   IconBrandX,
   IconRss,
 } from "@tabler/icons-react";
-import { metaData, socialLinks } from "@/config";
 import Link from "next/link";
+import { socialLinks } from "@/config";
 
 const YEAR = new Date().getFullYear();
 
-interface SocialLinkProps {
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-}
-
-function SocialLink({ href, icon: Icon, label }: SocialLinkProps) {
-  return (
-    <Link href={href} target="_blank" rel="noopener noreferrer">
-      <Icon className="size-5" />
-      <span className="sr-only">{label}</span>
-    </Link>
-  );
-}
-
-function SocialLinks() {
-  return (
-    <div className="float-right mt-4 flex gap-3.5 text-lg transition-opacity duration-300 hover:opacity-90 md:mt-0">
-      <SocialLink
-        href={socialLinks.twitter}
-        icon={IconBrandX}
-        label="Twitter"
-      />
-      <SocialLink
-        href={socialLinks.github}
-        icon={IconBrandGithub}
-        label="GitHub"
-      />
-      <SocialLink href={socialLinks.email} icon={IconMail} label="Email" />
-      <SocialLink href="/rss" icon={IconRss} label="RSS Feed" />
-    </div>
-  );
-}
-
 export default function Footer() {
   return (
-    <footer>
-      <div className="-mb-16 mt-14 flex flex-col items-center lg:-mb-48">
-        <div className="mb-3 flex space-x-4">
-          <SocialLinks />
-        </div>
-        <div className="mb-2 flex space-x-2 text-sm text-muted-foreground">
-          <time>&copy; {YEAR}</time>{" "}
-          <Link
-            className="no-underline"
-            href={socialLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {metaData.username}
+    <footer className="mt-16 text-sm text-muted-foreground">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <p>
+          &copy; {YEAR} Clemens Hoffmann &nbsp;&middot;&nbsp;{" "}
+          <Link href="/privacy">Privacy</Link> &middot;{" "}
+          <Link href="/imprint">Imprint</Link>
+        </p>
+        <div className="flex gap-4">
+          <Link href={socialLinks.email} className="hover:text-foreground">
+            <IconMail className="h-5 w-5" />
+            <span className="sr-only">Email</span>
           </Link>
-          <span className="mx-1"> </span>
-          <Link href="/imprint" className="no-underline">
-            Imprint
-          </Link>{" "}
-          &middot;{" "}
-          <Link href="/privacy" className="no-underline">
-            Privacy
+          <Link href={socialLinks.twitter} className="hover:text-foreground">
+            <IconBrandX className="h-5 w-5" />
+            <span className="sr-only">Twitter</span>
+          </Link>
+          <Link href={socialLinks.github} className="hover:text-foreground">
+            <IconBrandGithub className="h-5 w-5" />
+            <span className="sr-only">GitHub</span>
+          </Link>
+          <Link href="/rss" className="hover:text-foreground">
+            <IconRss className="h-5 w-5" />
+            <span className="sr-only">Feed</span>
           </Link>
         </div>
       </div>
