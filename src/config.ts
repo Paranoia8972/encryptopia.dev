@@ -8,7 +8,6 @@ import {
   IconCube,
   IconMail,
 } from "@tabler/icons-react";
-import { Link } from "./components/link-item";
 
 export const metaData = {
   baseUrl: "https://encryptopia.dev/",
@@ -74,4 +73,4 @@ export const links = [
     url: "https://reddit.com/user/Paranoia8972/",
     icon: IconBrandReddit,
   },
-] as Link[];
+];
