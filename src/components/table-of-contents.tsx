@@ -1,8 +1,10 @@
 "use client";
+
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface Heading {
   id: string;
@@ -15,16 +17,12 @@ const TableOfContents: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("");
   const tocRef = useRef<HTMLDivElement>(null);
   const [isStuck, setIsStuck] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const elements = Array.from(
       document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
-    ).filter(
-      (element) =>
-        !element.classList.contains("title") &&
-        element.id !== "table-of-contents" &&
-        element.id !== "blog-post-title",
-    );
+    ).filter((element) => element.id !== "toc-ignore");
 
     const headings = elements.map((element) => ({
       id: element.id,
@@ -68,11 +66,15 @@ const TableOfContents: React.FC = () => {
     };
   }, []);
 
+  if (!pathname.startsWith("/blog/")) {
+    return null;
+  }
+
   return (
-    <div ref={tocRef} className="lg:sticky lg:top-24">
-      <div className="mb-8 max-w-prose lg:hidden">
-        <details className="rounded-lg border bg-card text-card-foreground shadow-sm">
-          <summary className="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+    <div ref={tocRef} className="mt-8 lg:mt-0">
+      <div className="mb-8 hidden max-w-prose">
+        <details className="rounded-lg border border-gray-700 bg-gray-800 text-gray-300 shadow-sm">
+          <summary className="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 focus:ring-offset-gray-800">
             Table of Contents
             <ChevronDown className="ml-2 h-5 w-5" />
           </summary>
@@ -85,10 +87,10 @@ const TableOfContents: React.FC = () => {
                 <Link
                   href={`#${heading.id}`}
                   className={cn(
-                    "inline-block text-sm transition-colors hover:text-primary",
+                    "inline-block text-sm transition-colors hover:text-emerald-400",
                     activeId === heading.id
-                      ? "font-medium text-primary"
-                      : "text-muted-foreground",
+                      ? "font-medium text-emerald-400"
+                      : "text-gray-400",
                   )}
                   onClick={() => setActiveId(heading.id)}
                 >
@@ -100,33 +102,31 @@ const TableOfContents: React.FC = () => {
         </details>
       </div>
 
-      <nav className="hidden lg:block">
-        <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
-          <h3 className="mb-4 font-semibold" id="table-of-contents">
-            Table of Contents
-          </h3>
-          <ul className="space-y-3">
-            {headings.map((heading, index) => (
-              <li
-                key={`${heading.id}-${index}`}
-                style={{ paddingLeft: `${(heading.level - 1) * 1}rem` }}
+      <nav className="mt-12 hidden lg:block">
+        <h4 className="mb-4 tracking-tight text-gray-300" id="toc-ignore">
+          On this page
+        </h4>
+        <ul className="space-y-3 border-l border-gray-700 pl-4">
+          {headings.map((heading, index) => (
+            <li
+              key={`${heading.id}-${index}`}
+              style={{ marginLeft: `${(heading.level - 1) * 0.5}rem` }}
+            >
+              <Link
+                href={`#${heading.id}`}
+                className={cn(
+                  "inline-block text-sm transition-colors hover:text-emerald-400",
+                  activeId === heading.id
+                    ? "font-medium text-emerald-400"
+                    : "text-gray-400",
+                )}
+                onClick={() => setActiveId(heading.id)}
               >
-                <Link
-                  href={`#${heading.id}`}
-                  className={cn(
-                    "inline-block text-sm transition-colors hover:text-primary",
-                    activeId === heading.id
-                      ? "font-medium text-primary"
-                      : "text-muted-foreground",
-                  )}
-                  onClick={() => setActiveId(heading.id)}
-                >
-                  {heading.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+                {heading.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
     </div>
   );
