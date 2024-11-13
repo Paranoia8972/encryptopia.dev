@@ -1,56 +1,49 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export function DesktopNav() {
+export default function Nav() {
+  const pathname = usePathname();
   return (
-    <nav className="hidden md:block">
-      <div className="sticky top-16">
-        <Link href="/" className="mb-8 block">
-          <div className="h-8 w-8 rounded-full bg-primary" />
-        </Link>
-        <ul className="space-y-4 text-sm text-muted-foreground">
-          <li>
-            <Link href="/blog" className="hover:text-foreground">
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link href="/projects" className="hover:text-foreground">
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link href="/gallery" className="hover:text-foreground">
-              Gallery
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
-}
-
-export function MobileNav() {
-  return (
-    <nav className="fixed left-0 right-0 top-0 z-10 bg-background md:hidden">
-      <div className="mx-auto max-w-[640px] px-6 py-4">
-        <ul className="flex justify-center space-x-6 text-sm text-muted-foreground">
-          <li>
-            <Link href="/blog" className="hover:text-foreground">
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link href="/projects" className="hover:text-foreground">
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link href="/gallery" className="hover:text-foreground">
-              Gallery
-            </Link>
-          </li>
-        </ul>
-      </div>
+    <nav className="mb-8 md:mb-0 md:w-48 md:flex-shrink-0">
+      <ul className="flex space-x-4 text-sm md:flex-col md:space-x-0 md:space-y-1">
+        <li>
+          <Link
+            className={`relative hover:text-emerald-600 hover:underline ${
+              pathname === "/"
+                ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
+                : ""
+            }`}
+            href="/"
+          >
+            About
+          </Link>
+        </li>
+        <li>
+          <Link
+            className={`relative hover:text-emerald-600 hover:underline ${
+              pathname.startsWith("/blog")
+                ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
+                : ""
+            }`}
+            href="/blog"
+          >
+            Blog
+          </Link>
+        </li>
+        <li>
+          <Link
+            className={`relative hover:text-emerald-600 hover:underline ${
+              pathname !== "/" && !pathname.startsWith("/blog")
+                ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
+                : ""
+            }`}
+            href="/misc"
+          >
+            Misc
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 }
