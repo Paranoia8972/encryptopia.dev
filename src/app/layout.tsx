@@ -8,7 +8,7 @@ import { metaData } from "@/config";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: metaData.title,
+  title: `${metaData.title} by ${metaData.name}`,
   description: metaData.description,
 };
 
