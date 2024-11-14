@@ -15,7 +15,7 @@ export const metaData = {
   title: "ECYT",
   name: "Clemens",
   ogImage: "/opengraph-image.png",
-  description: "My wierd knowledge, noted down.",
+  description: "My knowledge, noted down.",
   username: "Paranoia8972",
   avatar: "/profile.avif",
   about: "I'm a student and developer from Germany.",
