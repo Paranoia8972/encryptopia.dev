@@ -1,19 +1,8 @@
-import Image from "next/image";
-import { metaData } from "@/config";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="max-w-[640px]">
-      <Image
-        src="/profile.avif"
-        alt={`${metaData.username}'s profile`}
-        className="mb-10 mt-0 block rounded-full bg-gray-100 sm:float-right sm:mb-5 sm:ml-5"
-        width={160}
-        height={160}
-        priority
-        unoptimized
-      />
-
+    <main className="prose prose-invert max-w-none flex-grow">
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
         My passion is building cool stuff.
       </h1>
@@ -29,6 +18,6 @@ export default function Page() {
           contributing to open-source projects.
         </p>
       </div>
-    </div>
+    </main>
   );
 }

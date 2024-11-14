@@ -1,4 +1,4 @@
-import { highlight } from "sugar-high";
+import { highlight } from "code-syntactic-sugar";
 
 export default function Code({
   children,

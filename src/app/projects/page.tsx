@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Projects() {
   return (
-    <div className="mt-16 flex min-h-screen justify-center">
+    <div className="mt-16 flex justify-center">
       <section className="w-full max-w-[640px] px-4">
         <h1 className="mb-8 text-2xl font-medium tracking-tight">Projects</h1>
         <div className="space-y-6">

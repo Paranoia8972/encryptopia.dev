@@ -1,13 +1,14 @@
-import { Button, ButtonProps } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import type { ButtonProps } from "@/components/ui/button";
 import Link from "next/link";
 
-export interface Link extends ButtonProps {
+export interface Links extends ButtonProps {
   title: string;
   url: string;
-  icon?: any;
+  icon?: React.ElementType;
 }
 
-export function LinkItem({ link }: { link: Link }) {
+export function LinkItem({ link }: { link: Links }) {
   return (
     <Button
       asChild

@@ -32,6 +32,6 @@ export function GET(request: Request) {
     {
       width: 1200,
       height: 630,
-    }
+    },
   );
 }

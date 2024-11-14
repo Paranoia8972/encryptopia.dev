@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export function CaptionComponent({ children }: { children: ReactNode }) {
   return (
-    <span className="block w-full text-xs my-3 font-mono dark:text-zinc-400 text-zinc-700 text-center leading-normal">
+    <span className="my-3 block w-full text-center font-mono text-xs leading-normal text-zinc-700 dark:text-zinc-400">
       <Balancer>
         <span className="[&>a]:post-link">{children}</span>
       </Balancer>

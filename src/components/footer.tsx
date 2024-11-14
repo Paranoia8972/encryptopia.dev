@@ -1,40 +1,39 @@
 "use client";
 import React from "react";
-import {
-  IconBrandGithub,
-  IconMail,
-  IconBrandX,
-  IconRss,
-} from "@tabler/icons-react";
+import { Mail, Github, Twitter, Rss } from "lucide-react";
 import Link from "next/link";
 import { socialLinks } from "@/config";
-
-const YEAR = new Date().getFullYear();
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
-    <footer className="mt-16 text-sm text-muted-foreground">
-      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <p>
-          &copy; {YEAR} Clemens Hoffmann &nbsp;&middot;&nbsp;{" "}
-          <Link href="/privacy">Privacy</Link> &middot;{" "}
-          <Link href="/imprint">Imprint</Link>
-        </p>
+    <footer
+      className={` ${pathname !== "/links" ? "mx-8 mt-16 md:ml-56" : "mx-2"}`}
+    >
+      <div className="flex flex-col items-center justify-between text-sm text-gray-400 md:flex-row">
+        <div className="mb-4 md:mb-0">
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} Clemens Hoffmann
+            &nbsp;&middot;&nbsp; <Link href="/privacy">Privacy</Link> &middot;{" "}
+            <Link href="/imprint">Imprint</Link>
+          </p>
+        </div>
         <div className="flex gap-4">
-          <Link href={socialLinks.email} className="hover:text-foreground">
-            <IconMail className="h-5 w-5" />
+          <Link href={socialLinks.email} className="hover:text-gray-300">
+            <Mail className="h-5 w-5" />
             <span className="sr-only">Email</span>
           </Link>
-          <Link href={socialLinks.twitter} className="hover:text-foreground">
-            <IconBrandX className="h-5 w-5" />
+          <Link href={socialLinks.twitter} className="hover:text-gray-300">
+            <Twitter className="h-5 w-5" />
             <span className="sr-only">Twitter</span>
           </Link>
-          <Link href={socialLinks.github} className="hover:text-foreground">
-            <IconBrandGithub className="h-5 w-5" />
+          <Link href={socialLinks.github} className="hover:text-gray-300">
+            <Github className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
           </Link>
-          <Link href="/rss" className="hover:text-foreground">
-            <IconRss className="h-5 w-5" />
+          <Link href="/feed" className="hover:text-gray-300">
+            <Rss className="h-5 w-5" />
             <span className="sr-only">Feed</span>
           </Link>
         </div>
