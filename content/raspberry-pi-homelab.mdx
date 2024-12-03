@@ -1,0 +1,91 @@
+---
+title: "Building a Homelab with Raspberry Pi"
+publishedAt: "2024-03-01"
+summary: "Learn how to create a powerful homelab using Raspberry Pi, including home automation, network monitoring, and self-hosted services."
+tags: "raspberry pi,homelab,self-hosting"
+---
+
+# Building a Homelab with Raspberry Pi
+
+<Callout type="info">
+  This guide uses a Raspberry Pi 4 with 8GB RAM, but most steps work with other models too.
+</Callout>
+
+## Hardware Setup
+
+<ImageGrid
+  images={[
+    {
+      src: "/blog/raspberry-pi/setup.png",
+      alt: "Raspberry Pi Setup"
+    },
+    {
+      src: "/blog/raspberry-pi/connections.png",
+      alt: "Connection Diagram"
+    }
+  ]}
+  columns={2}
+/>
+
+## Installing the Operating System
+
+Let's start with installing Raspberry Pi OS:
+
+<Tabs>
+  <Tab title="GUI Method">
+    ```bash
+    # Download Raspberry Pi Imager
+    sudo apt install rpi-imager
+    ```
+  </Tab>
+  <Tab title="Command Line">
+    ```bash
+    # Write image directly
+    sudo dd if=raspios.img of=/dev/sdX bs=4M status=progress
+    ```
+  </Tab>
+</Tabs>
+
+## Self-hosted Services
+
+Here's my docker-compose configuration for essential services: 
+  
+  ```yaml
+  version: '3'
+  services:
+    portainer:
+      image: portainer/portainer-ce
+      restart: always
+      ports:
+        - 9000:9000
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+  ```
+
+## Home Automation
+
+I use Home Assistant for home automation. Here's how to install it:
+
+```bash
+docker run -d --name="home-assistant" -v /path/to/config:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/raspberrypi4-homeassistant
+```
+
+## Network Monitoring
+
+For network monitoring, I recommend using Prometheus and Grafana:
+
+```bash
+docker run -d --name="prometheus" -
+  -p 9090:9090
+  -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml
+  prom/prometheus
+
+docker run -d --name="grafana" -
+  -p 3000:3000
+  grafana/grafana
+```
+
+## Conclusion
+
+With Raspberry Pi, you can build a powerful homelab for various purposes. Feel free to experiment with different services and configurations!
