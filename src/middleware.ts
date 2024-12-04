@@ -1,20 +1,21 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { analytics } from "@/lib/analytics";
 
-export async function middleware(request: NextRequest) {
-  const url = new URL(request.url);
-  const page = url.pathname;
-  const country = request.headers.get("x-vercel-ip-country") || "unknown";
-
-  await fetch(`${url.origin}/api/analytics?type=incrementView`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ page, country }),
-  });
+export default async function middleware(req: NextRequest) {
+  try {
+    await analytics.track("pageview", {
+      page: req.url,
+      country: req.headers.get("x-vercel-ip-country"),
+    });
+  } catch (err) {
+    console.error(err);
+  }
 
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+export const matcher = {
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|analytics).*)",
+  ],
 };

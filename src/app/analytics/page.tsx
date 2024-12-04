@@ -1,81 +1,146 @@
-import Link from "next/link";
-import { Mail, Github, Twitter, Linkedin } from "lucide-react";
-import { getPageViews, getTopPages, getGeoData } from "@/lib/analytics";
+import AnalyticsDashboard from "@/components/AnalyticsDashboard";
+import { getDate } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
-export const runtime = "edge";
+const Page = async () => {
+  const TRACKING_DAYS = 7;
 
-async function getData() {
-  const topPages = await getTopPages();
-  const overallViews = await getPageViews("/");
-  const geoData = await getGeoData("/");
+  const pageviews = await analytics.retrieveDays("pageview", TRACKING_DAYS);
 
-  return { topPages, overallViews, geoData };
-}
+  const totalPageviews = pageviews.reduce((acc, curr) => {
+    return (
+      acc +
+      curr.events.reduce((acc, curr) => {
+        return acc + Object.values(curr)[0]!;
+      }, 0)
+    );
+  }, 0);
 
-export default async function Component() {
-  const { topPages, overallViews, geoData } = await getData();
+  const avgVisitorsPerDay = (totalPageviews / TRACKING_DAYS).toFixed(1);
+
+  const amtVisitorsToday = pageviews
+    .filter((ev) => ev.date === getDate())
+    .reduce((acc, curr) => {
+      return (
+        acc +
+        curr.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0)
+      );
+    }, 0);
+
+  const topCountriesMap = new Map<string, number>();
+
+  for (let i = 0; i < pageviews.length; i++) {
+    const day = pageviews[i];
+    if (!day) continue;
+
+    for (let j = 0; j < day.events.length; j++) {
+      const event = day.events[j];
+      if (!event) continue;
+
+      const key = Object.keys(event)[0]!;
+      const value = Object.values(event)[0]!;
+
+      const parsedKey = JSON.parse(key);
+      const country = parsedKey?.country;
+
+      if (country) {
+        if (topCountriesMap.has(country)) {
+          const prevValue = topCountriesMap.get(country)!;
+          topCountriesMap.set(country, prevValue + value);
+        } else {
+          topCountriesMap.set(country, value);
+        }
+      }
+    }
+  }
+
+  const topCountries = Array.from(topCountriesMap.entries())
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5);
 
   return (
-    <main className="flex-grow">
-      <h1 className="mb-8 text-3xl font-bold text-gray-100">Analytics</h1>
-
-      <div className="grid gap-8 md:grid-cols-2">
-        <div className="rounded-lg bg-gray-800 p-6">
-          <h2 className="mb-4 text-xl font-semibold text-gray-100">
-            Overall Views
-          </h2>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <p className="text-sm text-gray-400">Total</p>
-              <p className="text-2xl font-bold text-emerald-500">
-                {overallViews.total}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">This Week</p>
-              <p className="text-2xl font-bold text-emerald-500">
-                {overallViews.week}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-400">This Month</p>
-              <p className="text-2xl font-bold text-emerald-500">
-                {overallViews.month}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg bg-gray-800 p-6">
-          <h2 className="mb-4 text-xl font-semibold text-gray-100">
-            Top Pages
-          </h2>
-          <ul className="space-y-2">
-            {topPages.map((page, index) => (
-              <li key={index} className="flex justify-between">
-                <span className="text-gray-400">{page.page}</span>
-                <span className="font-semibold text-emerald-500">
-                  {page.views}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-lg bg-gray-800 p-6 md:col-span-2">
-          <h2 className="mb-4 text-xl font-semibold text-gray-100">
-            Geolocation Data
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {Object.entries(geoData).map(([country, views]) => (
-              <div key={country} className="flex justify-between">
-                <span className="text-gray-400">{country}</span>
-                <span className="font-semibold text-emerald-500">{views}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className="flex min-h-screen w-full items-center justify-center py-12">
+      <div className="relative mx-auto w-full max-w-6xl text-white">
+        <AnalyticsDashboard
+          avgVisitorsPerDay={avgVisitorsPerDay}
+          amtVisitorsToday={amtVisitorsToday}
+          timeseriesPageviews={pageviews}
+          topCountries={topCountries}
+        />
       </div>
-    </main>
+      {/* <div className="flex space-x-4">
+          <Card className="w-1/2">
+            <CardHeader>
+              <CardDescription>Avg. visitors/day</CardDescription>
+              <CardTitle className="text-2xl">187</CardTitle>
+            </CardHeader>
+          </Card>
+          <Card className="w-1/2">
+            <CardHeader>
+              <CardDescription>
+                Visitors today <Badge percentage={100} />
+              </CardDescription>
+              <CardTitle className="text-2xl">1870</CardTitle>
+            </CardHeader>
+          </Card>
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>This week's top visitors</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag className="text-2xl" svg countryCode="US" />
+                <div>
+                  <CardDescription>United States</CardDescription>
+                  <CardTitle>1870</CardTitle>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag className="text-2xl" svg countryCode="IN" />
+                <div>
+                  <CardDescription>India</CardDescription>
+                  <CardTitle>1870</CardTitle>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag className="text-2xl" svg countryCode="GB" />
+                <div>
+                  <CardDescription>United Kingdom</CardDescription>
+                  <CardTitle>1870</CardTitle>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag className="text-2xl" svg countryCode="CA" />
+                <div>
+                  <CardDescription>Canada</CardDescription>
+                  <CardTitle>1870</CardTitle>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag className="text-2xl" svg countryCode="DE" />
+                <div>
+                  <CardDescription>Germany</CardDescription>
+                  <CardTitle>1870</CardTitle>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Daily Visitors</CardTitle>
+          </CardHeader>
+          <ChartContainer>
+            <BarChart data={chartData}>
+              <Bar dataKey="value" />
+              <ChartTooltip content={<ChartTooltipContent />} />
+            </BarChart>
+          </ChartContainer>
+        </Card> */}
+    </div>
   );
-}
+};
+
+export default Page;

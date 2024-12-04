@@ -1,81 +1,47 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import Redis from "ioredis";
+import { NextResponse } from "next/server";
+import { Redis } from "@upstash/redis/cloudflare";
 
 const redis = new Redis({
-  host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT || "6379"),
-  password: process.env.REDIS_PASSWORD,
-  tls: process.env.REDIS_TLS === "true" ? {} : undefined,
+  url: process.env.REDIS_URL!,
+  token: process.env.REDIS_TOKEN!,
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const { method, query } = req;
+export const runtime = "edge";
 
-  switch (method) {
-    case "GET":
-      if (query.type === "pageViews") {
-        const { page } = query;
-        const [total, week, month] = await Promise.all([
-          redis.get(`total:${page}`),
-          redis.get(`views:week:${page}`),
-          redis.get(`views:month:${page}`),
-        ]);
-        res.status(200).json({
-          total: Number(total) || 0,
-          week: Number(week) || 0,
-          month: Number(month) || 0,
-        });
-      } else if (query.type === "topPages") {
-        const keys = await redis.keys("total:*");
-        const pages = await Promise.all(
-          keys.map(async (key) => {
-            const page = key.replace("total:", "");
-            const views = await redis.get(key);
-            return { page, views: Number(views) };
-          }),
-        );
-        res
-          .status(200)
-          .json(pages.sort((a, b) => b.views - a.views).slice(0, 5));
-      } else if (query.type === "geoData") {
-        const { page } = query;
-        const geoData = await redis.zrangebyscore(`geo:${page}`, 0, -1);
-        const geoScores = await Promise.all(
-          geoData.map(async (country) => {
-            const views = await redis.zscore(`geo:${page}`, country);
-            return [country, Number(views)];
-          }),
-        );
-        res.status(200).json(Object.fromEntries(geoScores));
-      } else {
-        res.status(400).json({ error: "Invalid query type" });
-      }
-      break;
-    case "POST":
-      if (query.type === "incrementView") {
-        const { page, country } = req.body;
-        const weekKey = `views:week:${page}`;
-        const monthKey = `views:month:${page}`;
-        const geoKey = `geo:${page}`;
+export async function GET() {
+  const totalViews = await redis.get("total_views");
+  const countryViews = await redis.hgetall("country_views");
+  const now = Date.now();
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+  const monthAgo = now - 30 * 24 * 60 * 60 * 1000;
 
-        await Promise.all([
-          redis.incr(`total:${page}`),
-          redis.incr(weekKey),
-          redis.expire(weekKey, 60 * 60 * 24 * 7),
-          redis.incr(monthKey),
-          redis.expire(monthKey, 60 * 60 * 24 * 30),
-          redis.zincrby(geoKey, 1, country),
-        ]);
-        res.status(200).json({ success: true });
-      } else {
-        res.status(400).json({ error: "Invalid query type" });
-      }
-      break;
-    default:
-      res.setHeader("Allow", ["GET", "POST"]);
-      res.status(405).end(`Method ${method} Not Allowed`);
-  }
+  const weeklyViews = await redis.zcount("views_timeseries", weekAgo, now);
+  const monthlyViews = await redis.zcount("views_timeseries", monthAgo, now);
+
+  const pageViews = await redis.zrevrangebyscore(
+    "views_timeseries",
+    "+inf",
+    "-inf",
+    {
+      withscores: true,
+      limit: { offset: 0, count: 10 },
+    },
+  );
+
+  const formattedPageViews = pageViews.reduce(
+    (acc: Record<string, number>, [key, score]) => {
+      const [page] = (key as string).split(":");
+      acc[page] = (acc[page] || 0) + 1;
+      return acc;
+    },
+    {},
+  );
+
+  return NextResponse.json({
+    totalViews,
+    countryViews,
+    weeklyViews,
+    monthlyViews,
+    pageViews: formattedPageViews,
+  });
 }
