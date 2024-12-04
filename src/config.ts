@@ -13,7 +13,7 @@ export const metaData = {
   baseUrl: "https://encryptopia.dev/",
   // baseUrl: "http://localhost:3000/",
   title: "ECYT",
-  name: "Clemens",
+  name: "Clemens Hoffmann",
   ogImage: "/opengraph-image.png",
   description: "My knowledge, noted down.",
   username: "Paranoia8972",
