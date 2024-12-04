@@ -4,84 +4,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 215 28% 17%;
+    --foreground: 210 40% 98%;
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 215 28% 17%;
+    --secondary: 217 19% 27%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 19% 27%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 215 28% 17%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
+    --border: 217 19% 27%;
+    --input: 217 19% 27%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
-    --scroll: #c4c7cf;
+    --scroll: #2d3748;
 
-    --sh-bg: #f7f7f7;
-    --sh-identifier: #f472b6;
-    --sh-keyword: #0284c7;
-    --sh-string: #4f46e5;
-    --sh-class: #f472b6;
-    --sh-property: #0ea5e9;
-    --sh-entity: #0284c7;
-    --sh-jsxliterals: #1f2937;
-    --sh-sign: #64748b;
-    --sh-comment: #94a3b8;
+    --sh-bg: #1a202c;
+    --sh-identifier: #6ee7b7;
+    --sh-keyword: #34d399;
+    --sh-string: #a7f3d0;
+    --sh-class: #5eead4;
+    --sh-property: #22d3ee;
+    --sh-entity: #2dd4bf;
+    --sh-jsxliterals: #ecfdf5;
+    --sh-sign: #94a3b8;
+    --sh-comment: #64748b;
   }
   .dark {
-    /* --background: 222.2 84% 4.9%; */
-    --background: 222.2 84% 4.9%;
+    --background: 215 28% 17%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 215 28% 17%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 215 28% 17%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 215 28% 17%;
+    --secondary: 217 19% 27%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 217 19% 27%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 215 28% 17%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 217 19% 27%;
+    --input: 217 19% 27%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
 
-    --scroll: #333f5d;
+    --scroll: #2d3748;
 
-    --sh-bg: #1e293b;
-    --sh-identifier: #f472b6;
-    --sh-keyword: #cbd5e1;
-    --sh-string: #7dd3fc;
-    --sh-class: #f472b6;
-    --sh-property: #cbd5e1;
-    --sh-entity: #f472b6;
-    --sh-jsxliterals: #f8fafc;
-    --sh-sign: #64748b;
-    --sh-comment: #94a3b8;
+    --sh-bg: #1a202c;
+    --sh-identifier: #6ee7b7;
+    --sh-keyword: #34d399;
+    --sh-string: #a7f3d0;
+    --sh-class: #5eead4;
+    --sh-property: #22d3ee;
+    --sh-entity: #2dd4bf;
+    --sh-jsxliterals: #ecfdf5;
+    --sh-sign: #94a3b8;
+    --sh-comment: #64748b;
   }
 }
 
