@@ -65,7 +65,7 @@ const Badge = ({ percentage }: { percentage: number }) => {
 const chartConfig = {
   views: {
     label: "Views",
-    color: "var(--chart-1)",
+    color: "hsl(var(--chart-1))",
   },
 };
 
@@ -81,7 +81,7 @@ const AnalyticsDashboard = ({
   }));
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex w-[690px] flex-col gap-6">
       <div className="flex space-x-4">
         <Card className="w-1/2">
           <CardHeader>
@@ -135,7 +135,7 @@ const AnalyticsDashboard = ({
               <Bar
                 dataKey="views"
                 layout="vertical"
-                fill="var(--color-desktop)"
+                fill="var(--color-views)"
                 radius={4}
               >
                 <LabelList
