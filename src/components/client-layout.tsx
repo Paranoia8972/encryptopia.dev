@@ -25,7 +25,7 @@ export default function ClientLayout({
     <div className="flex min-h-screen flex-col text-gray-300 dark:bg-[#0d1117]">
       <div className="mx-auto mt-24 w-full max-w-5xl flex-grow px-4 py-8 md:px-6 lg:px-8">
         <div className="md:flex md:gap-8">
-          <div className="sticky top-20 h-max md:w-48 md:flex-shrink-0">
+          <div className="-mt-16 md:sticky md:top-20 md:h-max md:w-48 md:flex-shrink-0">
             <Nav />
             <TableOfContents />
           </div>
@@ -35,7 +35,7 @@ export default function ClientLayout({
           </div>
         </div>
       </div>
-      <div className="mx-auto mb-48 w-full max-w-5xl">
+      <div className="mx-auto mb-12 w-full max-w-5xl md:mb-48">
         <Footer />
       </div>
     </div>
