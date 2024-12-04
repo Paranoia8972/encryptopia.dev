@@ -53,7 +53,7 @@ export default async function Blog({ params }: PageProps) {
   }
 
   return (
-    <main className="prose prose-invert flex-grow">
+    <main className="flex-grow">
       <Script
         type="application/ld+json"
         id="json-ld-script"
@@ -76,7 +76,7 @@ export default async function Blog({ params }: PageProps) {
       </Script>
       <div className="space-y-4">
         <article>
-          <header className="-mt-[2.221rem] mb-8 flex items-baseline justify-between lg:-mt-14 lg:w-[690px]">
+          <header className="mb-8 flex items-baseline justify-between lg:w-[690px]">
             <h2 className="text-lg font-medium text-gray-100" id="toc-ignore">
               {post.metadata.title}
             </h2>
@@ -84,7 +84,9 @@ export default async function Blog({ params }: PageProps) {
               {formatDate(post.metadata.publishedAt, false)}
             </time>
           </header>
-          <CustomMDX source={post.content} />
+          <article className="prose prose-invert">
+            <CustomMDX source={post.content} />
+          </article>
         </article>
       </div>
     </main>

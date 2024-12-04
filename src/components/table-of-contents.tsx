@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
@@ -20,17 +19,19 @@ const TableOfContents: React.FC = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      setActiveId(hash);
+    }
     const elements = Array.from(
       document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
     ).filter((element) => element.id !== "toc-ignore");
-
     const headings = elements.map((element) => ({
       id: element.id,
       text: element.textContent || "",
       level: parseInt(element.tagName.substring(1)),
     }));
     setHeadings(headings);
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -41,9 +42,7 @@ const TableOfContents: React.FC = () => {
       },
       { rootMargin: "-20% 0px -80% 0px" },
     );
-
     elements.forEach((element) => observer.observe(element));
-
     const footer = document.querySelector("footer");
     if (footer) {
       const footerObserver = new IntersectionObserver(
@@ -56,16 +55,13 @@ const TableOfContents: React.FC = () => {
         },
         { threshold: [1] },
       );
-
       footerObserver.observe(footer);
     }
-
     return () => {
       observer.disconnect();
       elements.forEach((element) => observer.unobserve(element));
     };
   }, []);
-
   if (!pathname.startsWith("/blog/")) {
     return null;
   }
