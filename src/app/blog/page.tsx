@@ -14,10 +14,7 @@ export default function BlogPosts() {
       <div className="space-y-4">
         {allBlogs
           .sort((a, b) => {
-            if (
-              new Date(a.metadata.publishedAt) >
-              new Date(b.metadata.publishedAt)
-            ) {
+            if (new Date(a.metadata.date) > new Date(b.metadata.date)) {
               return -1;
             }
             return 1;
@@ -31,7 +28,7 @@ export default function BlogPosts() {
                   </h2>
                 </Link>
                 <time className="text-sm text-gray-500">
-                  {formatDate(post.metadata.publishedAt, false)}
+                  {formatDate(post.metadata.date, false)}
                 </time>
               </header>
             </article>

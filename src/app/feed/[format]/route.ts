@@ -58,12 +58,12 @@ export async function GET(
       title: post.metadata.title,
       id: postUrl,
       link: postUrl,
-      description: post.metadata.summary,
+      description: post.metadata.description,
       category: categories.map((tag) => ({
         name: tag,
         term: tag,
       })),
-      date: new Date(post.metadata.publishedAt),
+      date: new Date(post.metadata.date),
     });
   });
 

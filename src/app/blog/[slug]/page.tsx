@@ -27,8 +27,8 @@ export async function generateMetadata({
 
   const {
     title,
-    publishedAt: publishedTime,
-    summary: description,
+    date: publishedTime,
+    description: description,
   } = post.metadata;
   const ogImage = `${metaData.baseUrl}/og?title=${encodeURIComponent(title)}`;
 
@@ -63,9 +63,9 @@ export default async function Blog({ params }: PageProps) {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.metadata.title,
-          datePublished: post.metadata.publishedAt,
-          dateModified: post.metadata.publishedAt,
-          description: post.metadata.summary,
+          datePublished: post.metadata.date,
+          dateModified: post.metadata.date,
+          description: post.metadata.description,
           image: `/og?title=${encodeURIComponent(post.metadata.title)}`,
           url: `${metaData.baseUrl}/blog/${post.slug}`,
           author: {
@@ -81,7 +81,7 @@ export default async function Blog({ params }: PageProps) {
               {post.metadata.title}
             </h2>
             <time className="text-sm text-gray-500">
-              {formatDate(post.metadata.publishedAt, false)}
+              {formatDate(post.metadata.date, false)}
             </time>
           </header>
           <article className="prose prose-invert">
