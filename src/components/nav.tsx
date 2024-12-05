@@ -10,7 +10,7 @@ export default function Nav() {
       <Link href="/" className="flex items-center gap-4">
         <div className="h-10 w-10 rounded-full bg-emerald-500 text-center font-mono text-sm leading-8 text-black">
           <Image
-            src="/favicon.ico"
+            src="/profile.png"
             alt=""
             width={40}
             height={40}
