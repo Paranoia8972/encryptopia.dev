@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ClientLayout from "@/components/client-layout";
 import type { Metadata } from "next";
 import { metaData } from "@/config";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
