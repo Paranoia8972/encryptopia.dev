@@ -160,14 +160,14 @@ const AnalyticsDashboard = ({
           <ChartContainer config={chartConfig}>
             <BarChart
               accessibilityLayer
-              data={timeseriesPageviews.slice(-7)} // Ensure only the last 7 days are displayed
+              data={timeseriesPageviews.slice(-7)}
               margin={{
                 top: 20,
               }}
             >
               <CartesianGrid vertical={false} />
               <XAxis
-                dataKey="date" // Assuming 'date' is the key for the date in your data
+                dataKey="date"
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
@@ -182,8 +182,6 @@ const AnalyticsDashboard = ({
                 content={<ChartTooltipContent hideLabel />}
               />
               <Bar dataKey="views" fill="var(--chart-1)" radius={8}>
-                {" "}
-                // Assuming 'views' is the key for the views in your data
                 <LabelList
                   position="top"
                   offset={12}

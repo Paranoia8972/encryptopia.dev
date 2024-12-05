@@ -14,6 +14,7 @@ interface Heading {
 const TableOfContents: React.FC = () => {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [hasFoundHeading, setHasFoundHeading] = useState(false);
   const tocRef = useRef<HTMLDivElement>(null);
   const [isStuck, setIsStuck] = useState(false);
   const pathname = usePathname();
@@ -23,26 +24,52 @@ const TableOfContents: React.FC = () => {
     if (hash) {
       setActiveId(hash);
     }
+
     const elements = Array.from(
       document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
     ).filter((element) => element.id !== "toc-ignore");
+
     const headings = elements.map((element) => ({
       id: element.id,
       text: element.textContent || "",
       level: parseInt(element.tagName.substring(1)),
     }));
     setHeadings(headings);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+
+    let currentRootMargin = "40% 0px -60% 0px";
+
+    const createObserver = (rootMargin: string) => {
+      return new IntersectionObserver(
+        (entries) => {
+          const visibleEntry = entries.find((entry) => entry.isIntersecting);
+          if (visibleEntry) {
+            setActiveId(visibleEntry.target.id);
+            setHasFoundHeading(true);
+
+            if (rootMargin !== "10% 0px -80% 0px") {
+              const normalObserver = createObserver("10% 0px -80% 0px");
+              elements.forEach((element) => {
+                observer.unobserve(element);
+                normalObserver.observe(element);
+              });
+            }
           }
-        });
-      },
-      { rootMargin: "-20% 0px -80% 0px" },
-    );
+        },
+        { rootMargin },
+      );
+    };
+
+    let observer = createObserver(currentRootMargin);
     elements.forEach((element) => observer.observe(element));
+
+    const timeout = setTimeout(() => {
+      if (!hasFoundHeading) {
+        observer.disconnect();
+        observer = createObserver("60% 0px -40% 0px");
+        elements.forEach((element) => observer.observe(element));
+      }
+    }, 500);
+
     const footer = document.querySelector("footer");
     if (footer) {
       const footerObserver = new IntersectionObserver(
@@ -57,12 +84,18 @@ const TableOfContents: React.FC = () => {
       );
       footerObserver.observe(footer);
     }
+
     return () => {
+      clearTimeout(timeout);
       observer.disconnect();
       elements.forEach((element) => observer.unobserve(element));
     };
-  }, []);
+  }, [hasFoundHeading]);
+
   if (!pathname.startsWith("/blog/")) {
+    return null;
+  }
+  if (headings.length === 0) {
     return null;
   }
 
