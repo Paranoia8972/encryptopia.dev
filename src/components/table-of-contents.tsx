@@ -18,6 +18,36 @@ const TableOfContents: React.FC = () => {
   const tocRef = useRef<HTMLDivElement>(null);
   const [isStuck, setIsStuck] = useState(false);
   const pathname = usePathname();
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const updateOpenState = (newState: boolean) => {
+    setIsOpen(newState);
+    if (detailsRef.current) {
+      detailsRef.current.open = newState;
+    }
+  };
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    updateOpenState(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        detailsRef.current &&
+        !detailsRef.current.contains(event.target as Node)
+      ) {
+        updateOpenState(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -101,13 +131,22 @@ const TableOfContents: React.FC = () => {
 
   return (
     <div ref={tocRef} className="mt-8 lg:mt-0">
-      <div className="mb-8 hidden max-w-prose">
-        <details className="rounded-lg border border-gray-700 bg-gray-800 text-gray-300 shadow-sm">
-          <summary className="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 focus:ring-offset-gray-800">
-            Table of Contents
-            <ChevronDown className="ml-2 h-5 w-5" />
+      <div className="fixed bottom-4 left-1/2 z-50 w-auto max-w-[90%] -translate-x-1/2 md:hidden">
+        <details
+          ref={detailsRef}
+          open={isOpen}
+          className="overflow-hidden rounded-3xl border border-gray-700/50 bg-[#0d1117] text-gray-300 shadow-lg backdrop-blur-sm transition-all duration-300 ease-in-out"
+        >
+          <summary
+            className="flex w-full cursor-pointer items-center justify-between px-6 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#0d1117]"
+            onClick={handleToggle}
+          >
+            On this page
+            <ChevronDown
+              className={`ml-2 h-5 w-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+            />
           </summary>
-          <ul className="space-y-2 p-4">
+          <ul className="mt-2 max-h-[50vh] space-y-2 overflow-y-auto rounded-b-2xl bg-[#0d1117] p-4">
             {headings.map((heading, index) => (
               <li
                 key={`${heading.id}-${index}`}
@@ -131,7 +170,7 @@ const TableOfContents: React.FC = () => {
         </details>
       </div>
 
-      <nav className="mt-12 hidden lg:block">
+      <nav className="mt-12 hidden md:block">
         <h4 className="mb-4 tracking-tight text-gray-300" id="toc-ignore">
           On this page
         </h4>
