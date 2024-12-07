@@ -5,16 +5,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: {
-    remotePatterns: [
-      {
-        hostname: "v0.dev",
-      },
-      {
-        hostname: "picsum.photos",
-      },
-    ],
-  },
   async rewrites() {
     return [
       {
