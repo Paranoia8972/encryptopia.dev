@@ -17,6 +17,7 @@ export default function Nav() {
             className="rounded-full"
           />
         </div>
+        <span className="sr-only">Home</span>
       </Link>
       <nav className="mb-8 mt-8 md:mb-0 md:mt-14 md:w-48 md:flex-shrink-0">
         <ul className="flex space-x-4 text-sm md:flex-col md:space-x-0 md:space-y-1">
