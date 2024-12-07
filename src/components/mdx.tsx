@@ -16,6 +16,7 @@ import { AnchorHTMLAttributes } from "react";
 import remarkGfm from "remark-gfm";
 import { Disclosure } from "./mdx/disclosure";
 import { Tab, Tabs } from "./mdx/tabs";
+import CodeBlock from "./mdx/code";
 
 interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href?: string;
@@ -100,7 +101,7 @@ const components = {
   Tweet: TweetComponent,
   Caption: CaptionComponent,
   YouTube: YouTubeComponent,
-  code: Code,
+  code: CodeBlock,
   Callout,
 };
 
