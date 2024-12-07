@@ -84,7 +84,7 @@ export default async function Blog({ params }: PageProps) {
               {formatDate(post.metadata.date, false)}
             </time>
           </header>
-          <article className="prose prose-invert">
+          <article className="prose dark:prose-invert prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-h4:text-base prose-h5:text-sm prose-h6:text-xs">
             <CustomMDX source={post.content} />
           </article>
         </article>

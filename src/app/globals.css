@@ -32,7 +32,8 @@
 
     --scroll: #2d3748;
 
-    --sh-bg: #1a202c;
+    --sh-bg: #0d1117;
+    --sh-bg-2: #2d3748;
     --sh-identifier: #6ee7b7;
     --sh-keyword: #34d399;
     --sh-string: #a7f3d0;
@@ -71,7 +72,8 @@
 
     --scroll: #2d3748;
 
-    --sh-bg: #1a202c;
+    --sh-bg: #151c27;
+    --sh-bg-2: #1e2635;
     --sh-identifier: #6ee7b7;
     --sh-keyword: #34d399;
     --sh-string: #a7f3d0;
@@ -105,7 +107,16 @@
   cursor: pointer;
 }
 
+.prose .anchor:after {
+  @apply text-neutral-300 dark:text-neutral-700;
+  content: "#";
+}
+
 .anchor:hover {
+  @apply visible;
+}
+
+.prose *:hover > .anchor {
   @apply visible;
 }
 
@@ -117,17 +128,8 @@
   @apply decoration-neutral-600 dark:decoration-neutral-400;
 }
 
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
-  content: "#";
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
-}
-
 .prose pre {
-  @apply overflow-x-auto rounded-lg bg-[var(--sh-bg)] dark:bg-[var(--sh-bg)];
+  @apply overflow-x-auto rounded-lg p-0;
 }
 
 .prose code {
