@@ -50,6 +50,67 @@ const TableOfContents: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id);
+          setHasFoundHeading(true);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: "-20% 0px -80% 0px",
+    });
+
+    const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    headings.forEach((heading) => observer.observe(heading));
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  useEffect(() => {
+    const setInitialActiveHeading = () => {
+      const headings = Array.from(
+        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+      );
+
+      if (headings.length === 0) {
+        return;
+      }
+
+      const topHeading = headings.reduce((nearest, current) => {
+        try {
+          const currentRect = current.getBoundingClientRect();
+          const nearestRect = nearest.getBoundingClientRect();
+
+          return currentRect.top < nearestRect.top ? current : nearest;
+        } catch (error) {
+          return nearest;
+        }
+      }, headings[0]);
+
+      if (topHeading) {
+        setActiveId(topHeading.id);
+        setHasFoundHeading(true);
+      }
+    };
+
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      setActiveId(hash);
+      setHasFoundHeading(true);
+    } else {
+      setInitialActiveHeading();
+    }
+  }, [pathname]);
+
+  const handleHeadingClick = (id: string) => {
+    setActiveId(id);
+    setHasFoundHeading(true);
+  };
+
+  useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (hash) {
       setActiveId(hash);
@@ -122,6 +183,28 @@ const TableOfContents: React.FC = () => {
     };
   }, [hasFoundHeading]);
 
+  useEffect(() => {
+    const collectHeadings = () => {
+      const elements = Array.from(
+        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+      ).filter((element) => element.id !== "toc-ignore");
+
+      const newHeadings = elements.map((element) => ({
+        id: element.id,
+        text: element.textContent || "",
+        level: parseInt(element.tagName.substring(1)),
+      }));
+
+      setHeadings(newHeadings);
+    };
+
+    collectHeadings();
+
+    const timeoutId = setTimeout(collectHeadings, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [pathname]);
+
   if (!pathname.startsWith("/blog/")) {
     return null;
   }
@@ -160,7 +243,7 @@ const TableOfContents: React.FC = () => {
                       ? "font-medium text-emerald-400"
                       : "text-gray-400",
                   )}
-                  onClick={() => setActiveId(heading.id)}
+                  onClick={() => handleHeadingClick(heading.id)}
                 >
                   {heading.text}
                 </Link>
@@ -188,7 +271,7 @@ const TableOfContents: React.FC = () => {
                     ? "font-medium text-emerald-400"
                     : "text-gray-400",
                 )}
-                onClick={() => setActiveId(heading.id)}
+                onClick={() => handleHeadingClick(heading.id)}
               >
                 {heading.text}
               </Link>
