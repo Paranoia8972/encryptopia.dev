@@ -77,7 +77,7 @@ export default async function Blog({ params }: PageProps) {
       <div className="space-y-4">
         <article>
           <header className="mb-8 flex items-baseline justify-between lg:w-[690px]">
-            <h2 className="text-lg font-medium text-gray-100" id="toc-ignore">
+            <h2 className="text-lg font-medium text-gray-100" id="!toc-ignore">
               {post.metadata.title}
             </h2>
             <time className="text-sm text-gray-500">
