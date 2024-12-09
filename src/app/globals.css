@@ -188,3 +188,7 @@ h6 {
   border-radius: 4px;
   background-color: var(--scroll);
 }
+
+details > summary::-webkit-details-marker {
+  @apply hidden;
+}
