@@ -53,7 +53,7 @@ export default async function Blog({ params }: PageProps) {
   }
 
   return (
-    <main className="flex-grow">
+    <>
       <Script
         type="application/ld+json"
         id="json-ld-script"
@@ -74,21 +74,17 @@ export default async function Blog({ params }: PageProps) {
           },
         })}
       </Script>
-      <div className="space-y-4">
-        <article>
-          <header className="mb-8 flex items-baseline justify-between lg:w-[690px]">
-            <h2 className="text-lg font-medium text-gray-100" id="!toc-ignore">
-              {post.metadata.title}
-            </h2>
-            <time className="text-sm text-gray-500">
-              {formatDate(post.metadata.date, false)}
-            </time>
-          </header>
-          <article className="prose dark:prose-invert prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-h4:text-base prose-h5:text-sm prose-h6:text-xs">
-            <CustomMDX source={post.content} />
-          </article>
-        </article>
-      </div>
-    </main>
+      <article className="mb-8 flex flex-col items-start justify-between lg:w-[690px] lg:flex-row lg:items-baseline">
+        <h2 className="text-lg font-medium text-gray-100" id="!toc-ignore">
+          {post.metadata.title}
+        </h2>
+        <time className="mt-2 text-sm text-gray-500 lg:mt-0">
+          {formatDate(post.metadata.date, false)}
+        </time>
+      </article>
+      <article className="prose dark:prose-invert prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-h4:text-base prose-h5:text-sm prose-h6:text-xs">
+        <CustomMDX source={post.content} />
+      </article>
+    </>
   );
 }
