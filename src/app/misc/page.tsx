@@ -1,22 +1,6 @@
 import Link from "next/link";
 
-interface MiscLink {
-  title: string;
-  href: string;
-}
-
 export default function Component() {
-  const miscLinks: MiscLink[] = [
-    {
-      title: "Project One (Description)",
-      href: "/projects/one",
-    },
-    {
-      title: "My Writing on Technology",
-      href: "/writing/tech",
-    },
-  ];
-
   return (
     <main className="prose prose-invert max-w-none flex-grow">
       <h2 className="text-lg font-medium text-gray-100">Misc</h2>

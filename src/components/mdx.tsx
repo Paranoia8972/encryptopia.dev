@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
-import { highlight } from "sugar-high";
 import { TweetComponent } from "./mdx/tweet";
 import { CaptionComponent } from "./mdx/caption";
 import { YouTubeComponent } from "./mdx/youtube";
@@ -40,17 +39,6 @@ function CustomLink(props: CustomLinkProps) {
 function RoundedImage(props: ImageProps) {
   const { alt, ...rest } = props;
   return <Image alt={alt} className="rounded-lg" {...rest} />;
-}
-
-function Code({
-  children,
-  ...props
-}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) {
-  const codeContent = children?.toString() || "";
-  const isCodeBlock = codeContent.includes("\n");
-  const codeHTML = isCodeBlock ? highlight(codeContent) : codeContent;
-
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
 function slugify(str: string) {

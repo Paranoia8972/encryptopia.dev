@@ -16,7 +16,6 @@ const TableOfContents: React.FC = () => {
   const [activeId, setActiveId] = useState<string>("");
   const [hasFoundHeading, setHasFoundHeading] = useState(false);
   const tocRef = useRef<HTMLDivElement>(null);
-  const [isStuck, setIsStuck] = useState(false);
   const pathname = usePathname();
   const detailsRef = useRef<HTMLDetailsElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -85,7 +84,7 @@ const TableOfContents: React.FC = () => {
           const nearestRect = nearest.getBoundingClientRect();
 
           return currentRect.top < nearestRect.top ? current : nearest;
-        } catch (error) {
+        } catch {
           return nearest;
         }
       }, headings[0]);
@@ -127,7 +126,7 @@ const TableOfContents: React.FC = () => {
     }));
     setHeadings(headings);
 
-    let currentRootMargin = "40% 0px -60% 0px";
+    const currentRootMargin = "40% 0px -60% 0px";
 
     const createObserver = (rootMargin: string) => {
       return new IntersectionObserver(
@@ -160,21 +159,6 @@ const TableOfContents: React.FC = () => {
         elements.forEach((element) => observer.observe(element));
       }
     }, 500);
-
-    const footer = document.querySelector("footer");
-    if (footer) {
-      const footerObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (tocRef.current) {
-            const tocRect = tocRef.current.getBoundingClientRect();
-            const footerRect = entry.boundingClientRect;
-            setIsStuck(footerRect.top > tocRect.bottom);
-          }
-        },
-        { threshold: [1] },
-      );
-      footerObserver.observe(footer);
-    }
 
     return () => {
       clearTimeout(timeout);
