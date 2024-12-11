@@ -9,6 +9,12 @@ type Metadata = {
   image?: string;
 };
 
+export interface BlogPost {
+  metadata: Metadata;
+  slug: string;
+  content: string;
+}
+
 function parseFrontmatter(fileContent: string) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
   const match = frontmatterRegex.exec(fileContent);
