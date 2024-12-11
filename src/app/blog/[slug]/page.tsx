@@ -4,6 +4,8 @@ import { CustomMDX } from "@/components/mdx";
 import { getBlogPosts, formatDate } from "@/lib/posts";
 import { metaData } from "@/config";
 import Script from "next/script";
+import PostNavigation from "@/components/post-navigation";
+// import { RelatedPosts } from "@/components/related-posts";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -46,7 +48,15 @@ export async function generateMetadata({
 
 export default async function Blog({ params }: PageProps) {
   const resolvedParams = await params;
-  const post = getBlogPosts().find((post) => post.slug === resolvedParams.slug);
+  const posts = getBlogPosts();
+  const currentIndex = posts.findIndex(
+    (post) => post.slug === resolvedParams.slug,
+  );
+  const post = posts[currentIndex];
+
+  const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
   if (!post) {
     notFound();
@@ -85,6 +95,8 @@ export default async function Blog({ params }: PageProps) {
       <article className="prose dark:prose-invert prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-h4:text-base prose-h5:text-sm prose-h6:text-xs">
         <CustomMDX source={post.content} />
       </article>
+      <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+      {/* <RelatedPosts currentSlug={post.slug} tags={post.metadata.tags} /> */}
     </>
   );
 }
