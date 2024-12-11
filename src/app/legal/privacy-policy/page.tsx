@@ -3,9 +3,25 @@ import Link from "next/link";
 export default function Impressum() {
   return (
     <div className="prose mx-auto pb-12 dark:prose-invert">
-      <h1>Privacy Policy</h1>
+      <h2 className="text-lg font-medium text-gray-100">Privacy Policy</h2>
       <hr />
+      <h2 className="mb-4 mt-8 text-xl font-semibold">1. Analytics</h2>
       <p>
+        We use our own analytics service to gather information about the usage
+        of our website. The data collected by our analytics service includes
+        information such as:
+      </p>
+      <ul>
+        <li>Page views</li>
+        <li>Your Country (based on anonymized IP addresses by Vercel)</li>
+      </ul>
+      <p>
+        This data is used solely for the purpose of improving our website and
+        content. We do not collect personally identifiable information or share
+        this data with third parties. By using our website, you agree to the use
+        of the collection of this data.
+      </p>
+      {/* <p>
         <strong>1. Analytics (Umami)</strong>
         <br />
         <br />
@@ -47,7 +63,7 @@ export default function Impressum() {
         We do not have access to or control over the data that GitHub collects
         through Giscus. For more information on how GitHub handles your data,
         please refer to their privacy policy.
-      </p>
+      </p> */}
     </div>
   );
 }
