@@ -85,9 +85,9 @@ export default async function Blog({ params }: PageProps) {
         })}
       </Script>
       <article className="mb-8 flex flex-col items-start justify-between md:flex-row md:items-baseline lg:w-[690px]">
-        <h2 className="text-lg font-medium text-gray-100" id="!toc-ignore">
+        <h1 className="text-lg font-medium text-gray-100" id="!toc-ignore">
           {post.metadata.title}
-        </h2>
+        </h1>
         <time className="mt-2 text-sm text-gray-500 sm:mt-2 md:mt-0">
           {formatDate(post.metadata.date, false)}
         </time>
