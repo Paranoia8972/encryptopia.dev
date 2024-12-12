@@ -36,3 +36,5 @@ export async function TweetComponent({ id }: { id: string }) {
     </div>
   );
 }
+
+export default TweetComponent;

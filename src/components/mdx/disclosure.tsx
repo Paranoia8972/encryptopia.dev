@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { defaultConfig } from "next/dist/server/config-shared";
 
 interface DisclosureProps {
   title: string;
   children: React.ReactNode;
 }
 
-export const Disclosure: React.FC<DisclosureProps> = ({ title, children }) => {
+const Disclosure: React.FC<DisclosureProps> = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,3 +26,5 @@ export const Disclosure: React.FC<DisclosureProps> = ({ title, children }) => {
     </div>
   );
 };
+
+export default Disclosure;

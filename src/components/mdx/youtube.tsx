@@ -5,7 +5,7 @@ interface YouTubeComponentProps {
   videoId: string;
 }
 
-export function YouTubeComponent(props: YouTubeComponentProps) {
+export default function YouTubeComponent(props: YouTubeComponentProps) {
   return (
     <div className="relative my-6 h-0 w-full pb-[56.25%]">
       <YT

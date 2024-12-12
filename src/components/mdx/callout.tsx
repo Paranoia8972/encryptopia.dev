@@ -22,7 +22,7 @@ const calloutIcon = {
   note: <Info className="mr-2 size-6" />,
 };
 
-export function Callout({
+export default function Callout({
   children,
   type = "note",
   title,
