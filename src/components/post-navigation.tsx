@@ -17,7 +17,7 @@ export default function PostNavigation({
           href={`/blog/${prevPost.slug}`}
           className="flex flex-col items-start hover:text-emerald-400"
         >
-          <span className="text-sm text-gray-500">Previous</span>
+          <span className="text-sm text-gray-400">Previous</span>
           <span className="text-lg">{prevPost.metadata.title}</span>
         </Link>
       ) : (
@@ -28,7 +28,7 @@ export default function PostNavigation({
           href={`/blog/${nextPost.slug}`}
           className="flex flex-col items-end hover:text-emerald-400"
         >
-          <span className="text-sm text-gray-500">Next</span>
+          <span className="text-sm text-gray-400">Next</span>
           <span className="text-lg">{nextPost.metadata.title}</span>
         </Link>
       ) : (
