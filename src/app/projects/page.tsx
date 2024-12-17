@@ -1,9 +1,10 @@
 import React from "react";
 import type { Metadata } from "next";
 import { projects } from "./project-data";
+import { metaData } from "@/config";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: `Projects - ${metaData.name}`,
   description: "My Projects",
 };
 

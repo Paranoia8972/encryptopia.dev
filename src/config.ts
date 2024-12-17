@@ -10,9 +10,9 @@ import {
 } from "@tabler/icons-react";
 
 export const metaData = {
-  baseUrl: "https://encryptopia.dev/",
+  baseUrl: "https://clemensh.me/",
   // baseUrl: "http://localhost:3000/",
-  title: "ECYT",
+  title: "Clemens Hoffmann",
   name: "Clemens Hoffmann",
   ogImage: "/opengraph-image.png",
   description: "My knowledge, noted down.",

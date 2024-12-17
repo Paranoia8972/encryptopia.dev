@@ -11,7 +11,7 @@ import { VercelToolbar } from "@vercel/toolbar/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `${metaData.title} by ${metaData.name}`,
+  title: `${metaData.name}`,
   description: metaData.description,
 };
 
