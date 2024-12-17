@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { metaData } from "@/config";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { VercelToolbar } from "@vercel/toolbar/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const shouldInjectToolbar = process.env.NODE_ENV === "development";
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
@@ -29,6 +31,7 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
+          {shouldInjectToolbar && <VercelToolbar />}
           <ClientLayout>{children}</ClientLayout>
         </ThemeProvider>
       </body>
