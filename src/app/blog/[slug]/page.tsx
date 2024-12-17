@@ -54,8 +54,8 @@ export default async function Blog({ params }: PageProps) {
   );
   const post = posts[currentIndex];
 
-  const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
-  const nextPost =
+  const nextPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+  const prevPost =
     currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
   if (!post) {
