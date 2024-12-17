@@ -23,7 +23,7 @@ export default function Nav() {
         <ul className="flex space-x-4 text-sm md:flex-col md:space-x-0 md:space-y-1">
           <li>
             <Link
-              className={`relative hover:text-emerald-600 hover:underline ${
+              className={`relative hover:text-emerald-600 hover:underline md:text-base ${
                 pathname === "/"
                   ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
                   : ""
@@ -35,7 +35,7 @@ export default function Nav() {
           </li>
           <li>
             <Link
-              className={`relative hover:text-emerald-600 hover:underline ${
+              className={`relative hover:text-emerald-600 hover:underline md:text-base ${
                 pathname.startsWith("/blog")
                   ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
                   : ""
@@ -47,7 +47,7 @@ export default function Nav() {
           </li>
           <li>
             <Link
-              className={`relative hover:text-emerald-600 hover:underline ${
+              className={`relative hover:text-emerald-600 hover:underline md:text-base ${
                 pathname !== "/" && !pathname.startsWith("/blog")
                   ? "text-emerald-600 before:absolute before:-left-3 before:-top-[0.1rem] md:before:content-['•']"
                   : ""
