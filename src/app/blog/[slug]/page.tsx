@@ -88,7 +88,7 @@ export default async function Blog({ params }: PageProps) {
         <h1 className="text-lg font-medium text-gray-100" id="!toc-ignore">
           {post.metadata.title}
         </h1>
-        <time className="mt-2 text-sm text-gray-500 sm:mt-2 md:mt-0">
+        <time className="mt-2 text-sm text-gray-400 sm:mt-2 md:mt-0">
           {formatDate(post.metadata.date, false)}
         </time>
       </article>

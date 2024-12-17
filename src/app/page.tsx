@@ -39,7 +39,7 @@ export default function Page() {
                 {post.metadata.title}
               </h2>
             </Link>
-            <time className="mt-2 text-sm text-gray-500 md:ml-4 md:mt-0">
+            <time className="mt-2 text-sm text-gray-400 md:ml-4 md:mt-0">
               {formatDate(post.metadata.date, false)}
             </time>
           </article>
