@@ -35,7 +35,7 @@ export default function Page() {
             className="mb-2 flex flex-col items-baseline justify-between md:min-w-full md:flex-row lg:w-[690px]"
           >
             <Link href={`/blog/${post.slug}`}>
-              <h2 className="mr-4 text-xl font-semibold text-gray-100 hover:text-emerald-500 md:w-full">
+              <h2 className="mr-4 text-lg font-semibold text-gray-100 hover:text-emerald-500 md:w-full">
                 {post.metadata.title}
               </h2>
             </Link>

@@ -35,10 +35,10 @@ export async function generateMetadata({
   const ogImage = `${metaData.baseUrl}/og?title=${encodeURIComponent(title)}`;
 
   return {
-    title,
+    title: `${title} - ${metaData.name}`,
     description,
     openGraph: {
-      title,
+      title: `${title} - ${metaData.name}`,
       description,
       publishedTime,
       images: [{ url: ogImage }],
