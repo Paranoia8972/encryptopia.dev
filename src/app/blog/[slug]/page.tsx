@@ -84,13 +84,15 @@ export default async function Blog({ params }: PageProps) {
           },
         })}
       </Script>
-      <article className="mb-8 flex flex-col items-start justify-between md:flex-row md:items-baseline lg:w-[690px]">
-        <h1 className="text-lg font-medium text-gray-100" id="!toc-ignore">
-          {post.metadata.title}
-        </h1>
-        <time className="mt-2 text-sm text-gray-400 sm:mt-2 md:mt-0">
-          {formatDate(post.metadata.date, false)}
-        </time>
+      <article key={post.slug} className="mb-8 flex flex-col lg:w-[690px]">
+        <div className="flex items-center justify-between">
+          <h1 className="text-lg font-medium text-gray-100 hover:text-emerald-500">
+            {post.metadata.title}
+          </h1>
+          <time className="mt-2 text-sm text-gray-400 sm:mt-2 md:mt-0">
+            {formatDate(post.metadata.date, false)}
+          </time>
+        </div>
       </article>
       <article className="prose dark:prose-invert prose-h1:text-2xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-bold prose-h3:text-lg prose-h3:font-bold prose-h4:text-base prose-h5:text-sm prose-h6:text-xs">
         <CustomMDX source={post.content} />
