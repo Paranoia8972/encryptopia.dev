@@ -86,7 +86,7 @@ export default async function Blog({ params }: PageProps) {
       </Script>
       <article key={post.slug} className="mb-8 flex flex-col lg:w-[690px]">
         <div className="flex items-center justify-between">
-          <h1 className="text-lg font-medium text-gray-100 hover:text-emerald-500">
+          <h1 className="text-lg font-medium text-gray-100">
             {post.metadata.title}
           </h1>
           <time className="mt-2 text-sm text-gray-400 sm:mt-2 md:mt-0">
