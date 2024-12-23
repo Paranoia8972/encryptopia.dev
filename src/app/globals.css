@@ -132,10 +132,6 @@
   @apply overflow-x-auto rounded-lg p-0;
 }
 
-.prose code {
-  @apply rounded-lg px-1 py-0.5;
-}
-
 .prose pre code {
   @apply p-0;
   border: initial;
