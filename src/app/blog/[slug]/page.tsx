@@ -5,6 +5,7 @@ import { getBlogPosts, formatDate } from "@/lib/posts";
 import { metaData } from "@/config";
 import Script from "next/script";
 import PostNavigation from "@/components/post-navigation";
+import { headers } from "next/headers";
 // import { RelatedPosts } from "@/components/related-posts";
 
 export async function generateStaticParams() {
@@ -27,12 +28,20 @@ export async function generateMetadata({
     return;
   }
 
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const domain =
+    host in metaData.domains && typeof host === "string"
+      ? metaData.domains[host as keyof typeof metaData.domains]
+      : metaData.domains["clemensh.me"];
+  const baseUrl = domain.baseUrl;
+
   const {
     title,
     date: publishedTime,
     description: description,
   } = post.metadata;
-  const ogImage = `${metaData.baseUrl}/og?title=${encodeURIComponent(title)}`;
+  const ogImage = `${baseUrl}og?title=${encodeURIComponent(title)}`;
 
   return {
     title: `${title} - ${metaData.name}`,
@@ -47,6 +56,14 @@ export async function generateMetadata({
 }
 
 export default async function Blog({ params }: PageProps) {
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const domain =
+    host in metaData.domains && typeof host === "string"
+      ? metaData.domains[host as keyof typeof metaData.domains]
+      : metaData.domains["clemensh.me"];
+  const baseUrl = domain.baseUrl;
+
   const resolvedParams = await params;
   const posts = getBlogPosts();
   const currentIndex = posts.findIndex(
@@ -77,7 +94,7 @@ export default async function Blog({ params }: PageProps) {
           dateModified: post.metadata.date,
           description: post.metadata.description,
           image: `/og?title=${encodeURIComponent(post.metadata.title)}`,
-          url: `${metaData.baseUrl}/blog/${post.slug}`,
+          url: `${baseUrl}/blog/${post.slug}`,
           author: {
             "@type": "Person",
             name: metaData.name,

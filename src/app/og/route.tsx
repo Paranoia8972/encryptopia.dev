@@ -1,9 +1,18 @@
 import { ImageResponse } from "next/og";
+import { headers } from "next/headers";
 import { metaData, socialLinks } from "@/config";
 
-export function GET(request: Request) {
+export async function GET(request: Request) {
   const url = new URL(request.url);
   const title = url.searchParams.get("title") || metaData.title;
+
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const domain =
+    host in metaData.domains && typeof host === "string"
+      ? metaData.domains[host as keyof typeof metaData.domains]
+      : metaData.domains["clemensh.me"];
+  const baseUrl = domain.baseUrl;
 
   return new ImageResponse(
     (
@@ -19,7 +28,7 @@ export function GET(request: Request) {
         </div>
         <div tw="flex items-center w-full justify-between">
           <div tw="flex text-xl">
-            {metaData.baseUrl.replace(/https?:\/\//, "").replace(/\/$/, "")}
+            {baseUrl.replace(/https?:\/\//, "").replace(/\/$/, "")}
           </div>
           <div tw="flex items-center text-xl">
             <div tw="flex ml-2">
