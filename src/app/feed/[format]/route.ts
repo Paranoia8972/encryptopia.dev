@@ -2,6 +2,7 @@ import { Feed } from "feed";
 import { getBlogPosts } from "@/lib/posts";
 import { metaData } from "@/config";
 import { NextResponse, NextRequest } from "next/server";
+import { headers } from "next/headers";
 
 export async function generateStaticParams() {
   return [
@@ -26,30 +27,34 @@ export async function GET(
     );
   }
 
-  const BaseUrl = metaData.baseUrl.endsWith("/")
-    ? metaData.baseUrl
-    : `${metaData.baseUrl}/`;
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const domain =
+    host in metaData.domains && typeof host === "string"
+      ? metaData.domains[host as keyof typeof metaData.domains]
+      : metaData.domains["clemensh.me"];
+  const baseUrl = domain.baseUrl;
 
   const feed = new Feed({
     title: metaData.title,
     description: metaData.description,
-    id: BaseUrl,
-    link: BaseUrl,
+    id: baseUrl,
+    link: baseUrl,
     copyright: `All rights reserved ${new Date().getFullYear()}, ${
       metaData.title
     }`,
     generator: "Feed for Node.js",
     feedLinks: {
-      json: `${BaseUrl}feed.json`,
-      atom: `${BaseUrl}atom.xml`,
-      rss: `${BaseUrl}rss.xml`,
+      json: `${baseUrl}feed.json`,
+      atom: `${baseUrl}atom.xml`,
+      rss: `${baseUrl}rss.xml`,
     },
   });
 
   const allPosts = await getBlogPosts();
 
   allPosts.forEach((post) => {
-    const postUrl = `${BaseUrl}blog/${post.slug}`;
+    const postUrl = `${baseUrl}blog/${post.slug}`;
     const categories = post.metadata.tags
       ? post.metadata.tags.split(",").map((tag) => tag.trim())
       : [];
