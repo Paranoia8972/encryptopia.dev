@@ -32,20 +32,12 @@ const nextConfig = {
         destination: "/feed/atom.xml",
       },
       {
-        source: "/json",
-        destination: "/feed/feed.json",
-      },
-      {
         source: "/sitemap",
         destination: "/sitemap.xml",
       },
       {
         source: "/imprint",
         destination: "/legal/imprint",
-      },
-      {
-        source: "/privacy-policy",
-        destination: "/legal/privacy-policy",
       },
       {
         source: "/privacy",
@@ -57,6 +49,7 @@ const nextConfig = {
       },
     ];
   },
+  poweredByHeader: false,
 };
 
 const withVercelToolbar = require("@vercel/toolbar/plugins/next")();

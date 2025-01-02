@@ -10,7 +10,16 @@ import {
 } from "@tabler/icons-react";
 
 export const metaData = {
-  baseUrl: "https://clemensh.me/",
+  domains: {
+    "clemensh.me": {
+      baseUrl: "https://clemensh.me/",
+      primary: false,
+    },
+    "encryptopia.dev": {
+      baseUrl: "https://encryptopia.dev/",
+      primary: true,
+    },
+  },
   // baseUrl: "http://localhost:3000/",
   title: "Clemens Hoffmann",
   name: "Clemens Hoffmann",
