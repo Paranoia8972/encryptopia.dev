@@ -1,16 +1,33 @@
 ---
-
+import "@/styles/global.css"
+import Layout from "layouts/Layout.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<header transition:persist>
+		<div class="flex flex-wrap justify-between gap-y-2">
+			<a href="/" class="text-2xl font-bold">Astro</a>
+			<nav>
+				<ul class="flex gap-x-4">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/contact">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<h1>Hello, Astro!</h1>
+	<div class="animate">First item</div>
+	<div class="animate">Second item</div>
+	<div class="animate">Third item</div>
+	<article class="animate">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, libero!
+	Quis ut voluptate velit at ipsam nostrum necessitatibus consequuntur alias.
+	Necessitatibus voluptas nulla saepe numquam voluptates quisquam vitae itaque quibusdam.
+	Est maiores quos magnam vel tempore, quidem dolorum corrupti repellendus!
+	At magni voluptate nemo aliquam illum molestiae numquam quae expedita.</article>
+	<section class="animate">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint, aliquid?
+	Laborum hic tenetur reprehenderit dolorem sed at est tempore mollitia?
+	Minima perspiciatis neque ducimus odit ab. Sint quasi explicabo eligendi?
+	Praesentium esse at minus modi asperiores accusamus sunt, provident vel.
+	Adipisci expedita atque accusantium, quia harum corrupti dignissimos aut non.</section>
+</Layout>
